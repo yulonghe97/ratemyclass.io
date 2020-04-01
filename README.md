@@ -237,7 +237,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 * (1-6points) axios (maybe)
 * (1-6points) cheerio (maybe)
 
-### Link to Initial Main Project File
+### [Link to Initial Main Project File](https://github.com/nyu-csci-ua-0480-008-spring-2020/yulonghe97-final-project/blob/ee1b9544c20b25edcb85375ec964bed372d6e60f/src/app.js#L1)
 
 ### Annotations / References Used
 
