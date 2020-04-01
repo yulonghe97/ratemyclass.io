@@ -83,7 +83,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 
 #### Class
 
-```json
+```javascript
 {
   className: "Intro to Programming",	
   classCode: "CSCI-001",	
@@ -105,7 +105,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 
 #### Review
 
-```json
+```javascript
 {
   reviewID: "rid00000001",
   reviewUser: {User},
@@ -123,7 +123,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 
 #### User
 
-```json
+```javascript
 {
   username:"superman",
   userID: "uid00000001"
@@ -142,7 +142,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 
 #####	University
 
-```json
+```javascript
 {
   universityID:"uid00000001",
   universityName:"New York University",
@@ -157,7 +157,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 
 ##### Administration (possible to do if time permitted)
 
-```json
+```javascript
 {
   adminID:"aid001",
   adminUsername:"admin",
