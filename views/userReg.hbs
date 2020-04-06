@@ -9,45 +9,46 @@
                 <!--Card content-->
                 <div class="card-body px-lg-5 pt-0">
                     <!-- Form -->
-                    <form class="text-center" style="color: #757575;" action="#!">
+                    <form id="reg-form" method="POST" class="text-center" style="color: #757575;" action="/reg">
                         <!--Username-->
                         <div class="md-form">
-                            <input type="text" id="materialRegisterFormUseranme" class="form-control">
+                            <input name="username" type="text" id="username" class="form-control" required>
                             <label for="materialRegisterFormEmail">Username</label>
                         </div>
                         <!-- Password -->
                         <div class="md-form">
-                            <input type="password" id="materialRegisterFormPassword" class="form-control"
-                                aria-describedby="materialRegisterFormPasswordHelpBlock">
+                            <input name="password" type="password" id="password" class="form-control"
+                                aria-describedby="materialRegisterFormPasswordHelpBlock" required>
                             <label for="materialRegisterFormPassword">Password</label>
                         </div>
                         <!-- E-mail -->
                         <div class="md-form">
-                            <input type="email" id="materialRegisterFormEmail" class="form-control">
+                            <input name="userEmail" type="email" id="userEmail" class="form-control">
                             <label for="materialRegisterFormEmail">E-mail</label>
                             <small class="form-text text-right">Optional</small>
                         </div>
 
                         <!-- NickName -->
                         <div class="md-form">
-                            <input type="text" id="materialRegisterFormPhone" class="form-control"
-                                aria-describedby="materialRegisterFormPhoneHelpBlock">
-                            <label for="materialRegisterFormPhone">Nickname</label>
+                            <input name="userNickname" type="text" id="nickname" class="form-control"
+                                aria-describedby="materialRegisterFormPhoneHelpBlock" placeholder="Nickname">
                         </div>
 
                         <!--Select School-->
-                        <select id="selectSchool" class="mdb-select md-form colorful-select dropdown-primary"
+                        <select name="userUniversity" id="selectSchool" class="mdb-select md-form colorful-select dropdown-primary"
                             searchable="Search here...">
-                            <option value="0" disabled selected>Choose your school</option>
-                            <option value="1"
+                            <option value="n/a" disabled selected>Choose your school</option>
+                            <option value="New York University"
                                 data-icon="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e3ffdb16164203.562a63b1164bb.jpg"
                                 class="rounded-circle">
                                 New York University</option>
-                            <option value="2"
+                            <option value="The New School"
                                 data-icon="https://lh3.googleusercontent.com/proxy/KJ4RSmtyZomjGpsnF6Z9RH0fGBs_jCyCxGxVdCAOgNxAluy9yEd8FTi1Xh7zYd1FzJtKDOZ4-b66edEggts8ST9bZIYjzXGBiapWhUeCzo7LvQ3-YD_M_WZMDfYqnD3c_h9ZXfh4H8Ns5i9yPk38fyNIUxrh2bCVMu8"
                                 class="rounded-circle">
                                 The New School</option>
                         </select>
+
+                        <input name="avatarURL" value="http://127.0.0.1" id="imageURL" style="display: none;">
 
                 
                         <!-- Sign up button -->
@@ -84,24 +85,24 @@
 
                 <!-- Avatar -->
                 <div class="avatar mx-auto white">
-                    <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"
+                    <img id="avatar" name="avatar" for="reg-form" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"
                         class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
                 </div>
 
                 <!-- Content -->
                 <div class="card-body">
                     <!-- Name -->
-                    <h4 class="card-title">
+                    <h4 class="card-title" id="previewNickname">
                         BARD
                     </h4>
                     <hr>
                     <!-- Quotation -->
-                    <div class="text-center"><a><i class="fas fa-university"></i> NYU</a></div>
+                    <div class="text-center" id="previewSchool"><i class="fas fa-university"></i><a id="schoolName">NYU</a></div>
                 </div>
 
             </div>
             <!-- Card -->
-            <button class="btn btn-rounded mt-5 mb-3">Randomize</button>
+            <button id="randomButton" class="btn btn-rounded mt-5 mb-3">Randomize</button>
             <hr>
             <small class="text-muted">Randomize will assign a random nickname and avatar</small>
         </div>
@@ -111,10 +112,36 @@
 
 
 <script>
-    // Material Select Initialization
+
+    function getRandom(){
+         $.getJSON("/random/", (data)=>{
+            $('#previewNickname').text(data.name);
+            $('#nickname').trigger('click');
+            $('#nickname').prop('value', data.name);
+            $('#avatar').attr('src', data.url);
+            $('#imageURL').attr('value', data.url);
+        });
+    }
+
     $(document).ready(function () {
         $('#selectSchool').materialSelect();
+        $('#imageURL').attr('value', $('#avatar').attr('src'));
+        getRandom();
     });
+
+    // show the preview
+    $('input#nickname').keyup(function(e){
+        $('#previewNickname').text(e.target.value);
+    });
+   $('#selectSchool').change(function(e){
+       $('#schoolName').html("&nbsp" + e.target.value);
+   });
+
+    // randomize
+    $('#randomButton').click(function(e){
+        getRandom();
+    });
+
 
 
 // Select the file input and use 

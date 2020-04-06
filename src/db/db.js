@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     password:{type: String, required:true},
     userEmail: String,
     userID: mongoose.Schema.Types.ObjectID,
-    userNickName: {type:String, required:true},
+    userNickname: {type:String, required:true},
     userUniversity: {type: mongoose.Schema.Types.ObjectID, ref:'University'},
     userDateCreated: Date,
     userAvatarUrl:{type:String, default: "https://miro.medium.com/max/360/1*W35QUSvGpcLuxPo3SRTH4w.png"},

@@ -13,6 +13,8 @@ const sessionOptions = {
     saveUninitialized: true
 };
 
+const name = ['Jack Ma', 'Adam Liu', 'Niubi'];
+
 
 app.use(session(sessionOptions));
 // view engine setup
@@ -38,13 +40,17 @@ app.get('/userReg', (req, res)=>{
     res.render('userReg.hbs');
 });
 
+app.post('/reg', (req, res)=>{
+    console.log(req.body);
+    res.redirect('/');
+});
+
 app.get('/profile',(req, res)=>{
     res.render('profile.hbs');
 });
 
-app.get('/custom-search/', (req, res)=>{
-    console.log(`requested! ${req.query.name}`);
-    res.json(a);
+app.get('/random', (req, res)=>{
+    res.json(getRandom())
 });
 
 // GET API
@@ -62,11 +68,11 @@ app.get('/saveRev', (req, res)=>{
         });
 });
 
-app.get('/testpop',(req,res)=>{
-   db.testPopulate({})
-       .then(()=>{
-          res.send('popped.');
-       });
-});
+
+function getRandom(){
+    const randomNameIndex = Math.floor(Math.random() * Math.floor(name.length));
+    const randomImgIndex = Math.floor(Math.random() * Math.floor(3));
+    return ({name: name[randomNameIndex], url: `/random/${randomImgIndex}.png` });
+}
 
 app.listen(3000);
