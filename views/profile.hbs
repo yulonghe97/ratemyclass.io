@@ -1,0 +1,94 @@
+<script src="/plugins/rating/jquery.star-rating-svg.js"></script>
+<link rel="stylesheet" type="text/css" href="/plugins/rating/css/star-rating-svg.css">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Card -->
+            <div class="card testimonial-card">
+                <!-- Background color -->
+                <div class="card-up deep-blue-gradient lighten-2"></div>
+                <!-- Avatar -->
+                <div class="avatar mx-auto white">
+                    <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"
+                        class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                </div>
+
+                <!-- Content -->
+                <div class="card-body">
+                    <!-- Name -->
+                    <div class="py-1">
+                        <h4 class="card-title">
+                            BARD
+                        </h4>
+                    </div>
+                    <hr class="py-1">
+                    <div class="text-center py-1"><a><i class="fas fa-university"></i> NYU</a></div>
+                    <div class="text-center py-2"><small>Computer Science</small></div>
+                </div>
+            </div>
+            <!-- Card -->
+        </div>
+        <div class="col-md-8">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h2>Reviews</h2>
+                    <ul class="list-group list-group-flush mb-3">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <span class="rating-1"></span>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <a>&nbsp;It's an ok class with lots of homework</a>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-end">
+                                    <small class=" text-muted"> CSCA-UA-480</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <span class="rating-2"></span>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <a>&nbsp;absolutely Best Class. Enjoyed it!</a>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-end">
+                                    <small class=" text-muted"> CSCA-UA-001</small>
+                                </div>
+                            </li>
+                        </ul>
+                    </ul>
+                    <h2 class="mt-5 py-2">Follows</h2>
+
+                    <div class="chip blue white-text lighten-1" style="left: 1rem;">
+                        CSCI-UA-480
+                    </div>
+                    <div class="chip teal white-text lighten-1" style="left: 1rem;">
+                        CSCI-UA-210
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".rating-1").starRating({
+        useFullStars: true,
+        starShape: 'rounded',
+        starSize: 20
+    });
+    $('.rating-1').starRating('setRating', 2.5)
+    $('.rating-1').starRating('setReadOnly', true);
+    $(".rating-2").starRating({
+        useFullStars: true,
+        starShape: 'rounded',
+        starSize: 20
+    });
+    $('.rating-2').starRating('setRating', 5)
+    $('.rating-2').starRating('setReadOnly', true);
+</script>

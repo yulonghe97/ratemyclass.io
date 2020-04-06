@@ -1,0 +1,123 @@
+<div class="container mt-5">
+    <div class="row mb-5"></div>
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-5">
+            <div class="card z-depth-1-half w-auto">
+                <h5 class="card-header bg-white dark-text text-center py-4">
+                    <strong>SIGN UP</strong>
+                </h5>
+                <!--Card content-->
+                <div class="card-body px-lg-5 pt-0">
+                    <!-- Form -->
+                    <form class="text-center" style="color: #757575;" action="#!">
+                        <!--Username-->
+                        <div class="md-form">
+                            <input type="text" id="materialRegisterFormUseranme" class="form-control">
+                            <label for="materialRegisterFormEmail">Username</label>
+                        </div>
+                        <!-- Password -->
+                        <div class="md-form">
+                            <input type="password" id="materialRegisterFormPassword" class="form-control"
+                                aria-describedby="materialRegisterFormPasswordHelpBlock">
+                            <label for="materialRegisterFormPassword">Password</label>
+                        </div>
+                        <!-- E-mail -->
+                        <div class="md-form">
+                            <input type="email" id="materialRegisterFormEmail" class="form-control">
+                            <label for="materialRegisterFormEmail">E-mail</label>
+                            <small class="form-text text-right">Optional</small>
+                        </div>
+
+                        <!-- NickName -->
+                        <div class="md-form">
+                            <input type="text" id="materialRegisterFormPhone" class="form-control"
+                                aria-describedby="materialRegisterFormPhoneHelpBlock">
+                            <label for="materialRegisterFormPhone">Nickname</label>
+                        </div>
+
+                        <!--Select School-->
+                        <select id="selectSchool" class="mdb-select md-form colorful-select dropdown-primary"
+                            searchable="Search here...">
+                            <option value="0" disabled selected>Choose your school</option>
+                            <option value="1"
+                                data-icon="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e3ffdb16164203.562a63b1164bb.jpg"
+                                class="rounded-circle">
+                                New York University</option>
+                            <option value="2"
+                                data-icon="https://lh3.googleusercontent.com/proxy/KJ4RSmtyZomjGpsnF6Z9RH0fGBs_jCyCxGxVdCAOgNxAluy9yEd8FTi1Xh7zYd1FzJtKDOZ4-b66edEggts8ST9bZIYjzXGBiapWhUeCzo7LvQ3-YD_M_WZMDfYqnD3c_h9ZXfh4H8Ns5i9yPk38fyNIUxrh2bCVMu8"
+                                class="rounded-circle">
+                                The New School</option>
+                        </select>
+
+                
+                        <!-- Sign up button -->
+                        <button class="btn btn-outline-primary btn-rounded my-4 waves-effect z-depth-0"
+                            type="submit">sign
+                            up</button>
+
+                        <hr>
+                        <!-- Terms of service -->
+                        <small>
+                            By clicking
+                            <em>Sign up</em> you agree to our
+                            <a href="" target="_blank">terms of service</a>
+                        </small>
+                    </form>
+                    <!-- Form -->
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="row">
+                <div class="col">
+
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card testimonial-card">
+
+                <!-- Background color -->
+                <div class="card-up deep-blue-gradient lighten-2"></div>
+
+                <!-- Avatar -->
+                <div class="avatar mx-auto white">
+                    <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"
+                        class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
+                </div>
+
+                <!-- Content -->
+                <div class="card-body">
+                    <!-- Name -->
+                    <h4 class="card-title">
+                        BARD
+                    </h4>
+                    <hr>
+                    <!-- Quotation -->
+                    <div class="text-center"><a><i class="fas fa-university"></i> NYU</a></div>
+                </div>
+
+            </div>
+            <!-- Card -->
+            <button class="btn btn-rounded mt-5 mb-3">Randomize</button>
+            <hr>
+            <small class="text-muted">Randomize will assign a random nickname and avatar</small>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Material Select Initialization
+    $(document).ready(function () {
+        $('#selectSchool').materialSelect();
+    });
+
+
+// Select the file input and use 
+// create() to turn it into a pond
+
+</script>
