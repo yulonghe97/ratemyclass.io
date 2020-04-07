@@ -14,6 +14,7 @@
                         <div class="md-form">
                             <input name="username" type="text" id="username" class="form-control" required>
                             <label for="materialRegisterFormEmail">Username</label>
+                            <small id='usernameError'class="form-text text-danger text-right d-none">username already existed</small>
                         </div>
                         <!-- Password -->
                         <div class="md-form">
@@ -31,12 +32,12 @@
                         <!-- NickName -->
                         <div class="md-form">
                             <input name="userNickname" type="text" id="nickname" class="form-control"
-                                aria-describedby="materialRegisterFormPhoneHelpBlock" placeholder="Nickname">
+                                aria-describedby="materialRegisterFormPhoneHelpBlock" placeholder="Nickname" required>
                         </div>
 
                         <!--Select School-->
-                        <select name="userUniversity" id="selectSchool" class="mdb-select md-form colorful-select dropdown-primary"
-                            searchable="Search here...">
+                        <select name="userUniversity" id="selectSchool"
+                            class="mdb-select md-form colorful-select dropdown-primary" searchable="Search here..." required>
                             <option value="n/a" disabled selected>Choose your school</option>
                             <option value="New York University"
                                 data-icon="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e3ffdb16164203.562a63b1164bb.jpg"
@@ -50,9 +51,9 @@
 
                         <input name="avatarURL" value="http://127.0.0.1" id="imageURL" style="display: none;">
 
-                
+
                         <!-- Sign up button -->
-                        <button class="btn btn-outline-primary btn-rounded my-4 waves-effect z-depth-0"
+                        <button id="submitButton"class="btn btn-outline-primary btn-rounded my-4 waves-effect z-depth-0"
                             type="submit">sign
                             up</button>
 
@@ -85,7 +86,8 @@
 
                 <!-- Avatar -->
                 <div class="avatar mx-auto white">
-                    <img id="avatar" name="avatar" for="reg-form" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"
+                    <img id="avatar" name="avatar" for="reg-form"
+                        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"
                         class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
                 </div>
 
@@ -97,7 +99,8 @@
                     </h4>
                     <hr>
                     <!-- Quotation -->
-                    <div class="text-center" id="previewSchool"><i class="fas fa-university"></i><a id="schoolName">NYU</a></div>
+                    <div class="text-center" id="previewSchool"><i class="fas fa-university"></i><a
+                            id="schoolName">&nbspSchool</a></div>
                 </div>
 
             </div>
@@ -113,8 +116,17 @@
 
 <script>
 
-    function getRandom(){
-         $.getJSON("/random/", (data)=>{
+    $(document).ready(function () {
+        $('#selectSchool').materialSelect();
+        $('#imageURL').attr('value', $('#avatar').attr('src'));
+        getRandom();
+    });
+
+    var formValid = true;
+
+    // randomize avatar and nickname
+    function getRandom() {
+        $.getJSON("/random/", (data) => {
             $('#previewNickname').text(data.name);
             $('#nickname').trigger('click');
             $('#nickname').prop('value', data.name);
@@ -123,28 +135,58 @@
         });
     }
 
-    $(document).ready(function () {
-        $('#selectSchool').materialSelect();
-        $('#imageURL').attr('value', $('#avatar').attr('src'));
-        getRandom();
+    // toast settings
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "md-toast-top-center",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": 300,
+        "hideDuration": 1000,
+        "timeOut": 5000,
+        "extendedTimeOut": 1000,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    // Validate username
+    $('input#username').change(function(e){
+        $.getJSON(`/api/user?username=${e.target.value}`,(result)=>{
+            if(result.exist === '1'){
+                $('#usernameError').removeClass('d-none');
+                formValid = false;
+            }else{
+                $('#usernameError').addClass('d-none');
+                formValid = true;
+            }
+        })
     });
 
     // show the preview
-    $('input#nickname').keyup(function(e){
+    $('input#nickname').keyup(function (e) {
         $('#previewNickname').text(e.target.value);
     });
-   $('#selectSchool').change(function(e){
-       $('#schoolName').html("&nbsp" + e.target.value);
-   });
+    $('#selectSchool').change(function (e) {
+        $('#schoolName').html("&nbsp" + e.target.value);
+    });
 
     // randomize
-    $('#randomButton').click(function(e){
+    $('#randomButton').click(function (e) {
         getRandom();
     });
 
-
-
-// Select the file input and use 
-// create() to turn it into a pond
+    // Check validation before submit
+    $('#submitButton').click((e)=>{
+       if(!formValid){
+           // prevent submission
+           e.preventDefault();
+           toastr["error"]("Please check the form requirements");
+       } 
+    });
 
 </script>

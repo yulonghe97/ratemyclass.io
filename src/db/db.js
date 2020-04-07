@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     userEmail: String,
     userID: mongoose.Schema.Types.ObjectID,
     userNickname: {type:String, required:true},
-    userUniversity: {type: mongoose.Schema.Types.ObjectID, ref:'University'},
+    userUniversity: {type: mongoose.Schema.Types.ObjectID, ref:'University', required:true},
     userDateCreated: Date,
     userAvatarUrl:{type:String, default: "https://miro.medium.com/max/360/1*W35QUSvGpcLuxPo3SRTH4w.png"},
     followedClass: [{type: mongoose.Schema.Types.ObjectID, ref:'Class'}],
@@ -78,7 +78,7 @@ const Movie = mongoose.model('Movie', movieSchema);
 const Class = mongoose.model('Class', classSchema);
 const Review = mongoose.model('Review', reviewSchema);
 const User = mongoose.model('User', userSchema);
-const University = mongoose.model('University', reviewSchema);
+const University = mongoose.model('University', universitySchema);
 
 // mongodb driver
 let dbconf;
