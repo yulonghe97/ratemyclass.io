@@ -1,19 +1,28 @@
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 
 // class objects that records the information of each school-class
 const classSchema = new mongoose.Schema({
+    classID: mongoose.Schema.Types.ObjectID,
     className: {type: String, required:true},
     classCode: {type: String, required:true},
     classSemester:{type: String, required:true},
-    classID: mongoose.Schema.Types.ObjectID,
-    classUniversity: {type: mongoose.Schema.Types.ObjectID, ref:'University'},
+    classSession:{type: [String], required:true},
+    classSection:{type: String},
+    classUnits:{type:String},
+    classUniversity: {type: String, required:true},
+    classPrereq:{type: String},
+    classWebsite:{type: String},
+    classDescription:{type: String, required:true},
     professor: {type: String, required:true},
     dateCreated: Date,
-    overallClassQualityRate: {type: Number, min: 0.0, max: 10.0},
-    overallClassDifficultyRate: {type: Number, min: 0.0, max: 10.0},
+    overallClassQualityRate: {type: Number, min: 0.0, max: 5.0},
+    overallClassDifficultyRate: {type: Number, min: 0.0, max: 5.0},
     overallGrade: String,
     popularity: Number,
-    reviews: [{type: mongoose.Schema.Types.ObjectID, ref:'Review'}]	// Or reviews: Review ??
+    reviews: [{type: mongoose.Schema.Types.ObjectID, ref:'Review'}],
+    // default value for isApproved is set to true
+    isApproved: {type: Boolean, default: true}	
 },{_id:true});
 
 // Review class that contains the information of each review
@@ -22,9 +31,8 @@ const reviewSchema = new mongoose.Schema({
     reviewUser: {type: mongoose.Schema.Types.ObjectID, ref:'User'},
     reviewDate: Date,
     reviewClass: {type: mongoose.Schema.Types.ObjectID, ref:'Class'},
-    qualityRating: {type: Number, min: 0.0, max: 10.0},
-    difficultyRating: {type: Number, min: 0.0, max: 10.0},
-    sentiment: String,
+    qualityRating: {type: Number, min: 0.0, max: 5.0},
+    difficultyRating: {type: Number, min: 0.0, max: 5.0},
     tags: [String],
     reviewContent:String
 },{_id:true});
@@ -36,7 +44,7 @@ const userSchema = new mongoose.Schema({
     userEmail: String,
     userID: mongoose.Schema.Types.ObjectID,
     userNickname: {type:String, required:true},
-    userUniversity: {type: mongoose.Schema.Types.ObjectID, ref:'University', required:true},
+    userUniversity: {type: String, required:true},
     userDateCreated: Date,
     userAvatarUrl:{type:String, default: "https://miro.medium.com/max/360/1*W35QUSvGpcLuxPo3SRTH4w.png"},
     followedClass: [{type: mongoose.Schema.Types.ObjectID, ref:'Class'}],
@@ -77,7 +85,7 @@ const movieSchema = new mongoose.Schema({
 const Movie = mongoose.model('Movie', movieSchema);
 const Class = mongoose.model('Class', classSchema);
 const Review = mongoose.model('Review', reviewSchema);
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', Schema);
 const University = mongoose.model('University', universitySchema);
 
 // mongodb driver
@@ -98,8 +106,8 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
     console.log(`Mode Error.`)
 }
 
-async function connectDB(){
-    await mongoose.connect(dbconf, {useNewUrlParser: true, useUnifiedTopology: true}, (error) => {
+function connectDB(){
+    mongoose.connect(dbconf, {useNewUrlParser: true, useUnifiedTopology: true}, (error) => {
         if(!error){
             console.log(`Cloud Database Connection success!`);
         }else {
@@ -112,7 +120,15 @@ async function connectDB(){
     });
 }
 
-connectDB().then(()=>{
-});
+
+// connect Database
+connectDB();
+
+// export User module
+module.exports = {
+    User: User
+};
+
+
 
 

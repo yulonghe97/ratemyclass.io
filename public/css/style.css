@@ -1,4 +1,19 @@
-body {
-    font-family: Montserrat;
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Istok+Web);
+
+
+body{
+   font-family: 'Montserrat',sans-serif; 
 }
 
+p{
+   font-family: 'Istok Web';
+}
+
+ul{
+   font-family: 'Istok Web';
+}
+
+a{
+   font-family: 'Istok Web';
+}

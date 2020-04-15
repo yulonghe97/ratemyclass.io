@@ -2,7 +2,7 @@
     <div class="row mb-5"></div>
     <div class="row d-flex align-items-center justify-content-center">
         <div class="col-md-5">
-            <div class="card z-depth-1-half w-auto">
+            <div class="card z-depth-1-half w-auto animated fadeIn">
                 <h5 class="card-header bg-white dark-text text-center py-4">
                     <strong>SIGN UP</strong>
                 </h5>
@@ -14,7 +14,7 @@
                         <div class="md-form">
                             <input name="username" type="text" id="username" class="form-control" required>
                             <label for="materialRegisterFormEmail">Username</label>
-                            <small id='usernameError'class="form-text text-danger text-right d-none">username already existed</small>
+                            <small class="form-text text-danger text-right d-none" id='usernameError'>username already existed</small>
                         </div>
                         <!-- Password -->
                         <div class="md-form">
@@ -53,7 +53,7 @@
 
 
                         <!-- Sign up button -->
-                        <button id="submitButton"class="btn btn-outline-primary btn-rounded my-4 waves-effect z-depth-0"
+                        <button id="submitButton" class="btn btn-outline-primary btn-rounded my-4 waves-effect z-depth-0"
                             type="submit">sign
                             up</button>
 
@@ -79,10 +79,10 @@
                 </div>
             </div>
             <!-- Card -->
-            <div class="card testimonial-card">
+            <div class="card testimonial-card animated fadeIn">
 
                 <!-- Background color -->
-                <div class="card-up deep-blue-gradient lighten-2"></div>
+                <div class="card-up deep-blue-gradient"></div>
 
                 <!-- Avatar -->
                 <div class="avatar mx-auto white">
@@ -122,14 +122,11 @@
         getRandom();
     });
 
-    var formValid = true;
+    let formValid = true;
 
-    // randomize avatar and nickname
-    function getRandom() {
-        $.getJSON("/random/", (data) => {
-            $('#previewNickname').text(data.name);
-            $('#nickname').trigger('click');
-            $('#nickname').prop('value', data.name);
+    // randomize avatar
+    function getRandomAvatar() {
+        $.getJSON("/api/randomAvatar", (data) => {
             $('#avatar').attr('src', data.url);
             $('#imageURL').attr('value', data.url);
         });
@@ -152,11 +149,11 @@
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-    }
+    };
 
     // Validate username
     $('input#username').change(function(e){
-        $.getJSON(`/api/user?username=${e.target.value}`,(result)=>{
+        $.getJSON(`/api/checkUser?username=${e.target.value}`,(result)=>{
             if(result.exist === '1'){
                 $('#usernameError').removeClass('d-none');
                 formValid = false;
@@ -177,8 +174,9 @@
 
     // randomize
     $('#randomButton').click(function (e) {
-        getRandom();
+        getRandomAvatar();
     });
+
 
     // Check validation before submit
     $('#submitButton').click((e)=>{

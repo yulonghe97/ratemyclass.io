@@ -227,7 +227,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 ----
 
 * (5 points) Integrate user authentication
-  * mayuse passport.js/permit for user authentication
+  * mayuse pass.js/permit for user authentication
   * user authentication
   * Admin panel authentication
 * (2 points) BootStrap CSS Framework
@@ -248,3 +248,21 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 3. [Passport.js](http://www.passportjs.org/docs/)
 4. [reCAPTCHA](https://developers.google.com/recaptcha/docs/display)
 5. [Webpack](https://webpack.js.org/concepts/)
+
+
+
+#### Features Completed
+
+---
+
+#####	Login / Registration
+
+|         Feature         |    Date    |                      Description                       |
+| :---------------------: | :--------: | :----------------------------------------------------: |
+| Basic Registration Form | 2020-04-05 |           Material Registration form design            |
+|     Profile Preview     | 2020-04-05 |            Realtime preview of user profile            |
+|   Random Avatar/Image   | 2020-04-06 |   RESTful API-based Random Avatar/Username Generator   |
+|     Form Validation     | 2020-04-07 | Check username duplicates. Handle some database error. |
+|    School Selection     | 2020-04-06 | Search and Select school using JS during registration  |
+|    Password Hashing     | 2020-04-07 |             Password hashing using bycrpt              |
+

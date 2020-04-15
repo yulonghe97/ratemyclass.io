@@ -1,12 +1,15 @@
 <!--LOGIN-->
 <div class="container mt-5">
+    <div id="error" class="alert alert-danger animated fadeIn" role="alert">
+        <a id="errorMsg">{{Error}}</a>
+    </div>
     <div class="row mb-5"></div>
     <div class="row d-flex justify-content-center">
         <!--USER LOGIN-->
         <div class="col-md-5">
             <section class="form-simple">
                 <!--Form with header-->
-                <div class="card rounded z-depth-1-half">
+                <div class="card rounded z-depth-1-half animated fadeIn">
                     <!--Header-->
                     <div class="header pt-3">
                         <div class="row d-flex justify-content-center rounded">
@@ -16,28 +19,50 @@
                     <hr>
                     <!--Header-->
                     <div class="card-body mx-4 mt-4 ">
+                        <form method="post" action="/userLogin">
                         <!--Body-->
                         <div class="md-form">
-                            <input type="text" id="Form-email4" class="form-control">
+                            <input name="username" type="text" id="Form-email4" class="form-control">
                             <label for="Form-email4">Username</label>
                         </div>
                         <div class="md-form pb-3">
-                            <input type="password" id="Form-pass4" class="form-control">
+                            <input name="password" type="password" id="Form-pass4" class="form-control">
                             <label for="Form-pass4">Password</label>
                             <p class="font-small grey-text d-flex justify-content-end">Forgot <a href="#" class="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
                         </div>
                         <div class="text-center mb-4">
-                            <button type="button" class="btn btn-outline-primary btn-rounded">Log in</button>
+                            <button type="submit" class="btn btn-outline-primary btn-rounded">Log in</button>
                         </div>
                         <p class="font-small grey-text d-flex justify-content-center">Don't have an account?
                             <a href="#" class="dark-grey-text font-weight-bold ml-1"> Sign up</a></p>
+                        </form>
                     </div>
                 </div>
                 <!--/Form with header-->
             </section>
         </div>
-        <div class="col-md-7 my-auto">
+        <div class="col-md-7 my-auto animated fadeIn">
             <img class=" img-fluid" src="/img/illustration/3081629.jpg" alt="">
         </div>
     </div>
 </div>
+
+<script>
+
+    function flashError(){
+        if($('#errorMsg').text() === ''){
+            $('#error').addClass('d-none');
+        }else{
+            setTimeout(()=>{
+                $('#error').removeClass('fadeIn').addClass('fadeOut');
+                setTimeout(()=>{
+                    $('#error').addClass('d-none');
+                },500);
+            }, 2000);
+        }
+    }
+
+    $(document).ready(function () {
+        flashError();
+    });
+</script>

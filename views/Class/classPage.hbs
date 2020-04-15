@@ -1,0 +1,380 @@
+<script src="/plugins/rating/jquery.star-rating-svg.js"></script>
+<link rel="stylesheet" type="text/css" href="/plugins/rating/css/star-rating-svg.css">
+<!--Main Layout-->
+<main>
+    <div class="container">
+        <section class="section mt-5 pb-3 wow fadeIn">
+            <!--Grid row-->
+            <div class="row">
+                <div class="col-md-auto">
+                    <!-- Card -->
+                    <div class="card card-cascade wider reverse">
+                        <div class="d-flex justify-content-end mr-5 ">
+                            <!-- Card image -->
+                            <div class="view view-cascade overlay gradient-card-header d-flex justify-content-center"
+                                style="width: 10%;">
+                                <img class="card-img-top img-fluid"
+                                    src="https://images-na.ssl-images-amazon.com/images/I/617H1Z7lr8L._AC_SL1500_.jpg"
+                                    alt="Card image cap">
+                            </div>
+                        </div>
+                        <div class="card-body card-body-cascade text-center">
+                            <h2 class="p-2"><a><strong>{{course.className}}</strong></a></h2>
+                            <p>
+                                <a>{{course.classCode}}&nbsp;</a>
+                                <a class="text-light ml-2 mr-2">|</a>
+                                <a>{{course.professor}}&nbsp;</a>
+                                <p class="card-text">
+                                    <a class="p-2">Quality&nbsp;<i class="rating-1"></i>&nbsp;</a>
+                                    <a class="p-2">Difficulty&nbsp;<i class="rating-2"></i>&nbsp;</a>
+                                    <a class="p-2">Average Grade&nbsp;<span
+                                            class="badge badge-pill badge-danger">{{course.overallGrade}}</span></a>
+                                </p>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="excerpt mt-5 wow fadeIn" data-wow-delay="0.3s">
+                        <h4 class="pt-4">Course Info:</h4>
+                        <hr>
+                        <p>
+                            <p> Semester: <span
+                                    class=" badge badge-pill badge-default">{{course.classSemester}}</span>&nbsp;
+                                Session:
+                                {{#each course.classSession}}
+                                <span class=" badge badge-pill badge-secondary">{{this}}</span>&nbsp;
+                                {{/each}}
+                                Section: <span class=" badge badge-pill badge-info">{{course.classSection}}</span>&nbsp;
+                                Units: <span class=" badge badge-pill badge-primary">{{course.classUnits}}</span>&nbsp;
+                            </p>
+                        </p>
+                        <h4 class="pt-4">Course Intro:</h4>
+                        <hr>
+                        <p>
+                            {{{course.classDescription}}}
+                        </p>
+                        <h4 class="pt-4">Prerequisite:</h4>
+                        <hr>
+                        <p>
+                            {{course.classPrereq}}
+                        </p>
+
+                        <div class="d-flex justify-content-end">
+                            <a class="text-primary small" href="{{course.classWebsite}}">>>> Course Website</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mb-4 pt-5 wow fadeIn" data-wow-delay="0.3s">
+            <div class="comments-list text-center text-md-left mb-5">
+                <div class="text-center mb-4">
+                    <h3 class="font-weight-bold pt-3 mb-5">Reviews <span class="badge pink">1</span></h3>
+                    <hr>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-2 col-12 mb-md-0 mb-3">
+                        <img src="/random/2.png" class="avatar rounded-circle z-depth-1-half">
+                    </div>
+                    <div class="col-sm-10 col-12">
+                        <a>
+                            <h4 class="font-weight-bold">Tom Smith</h4>
+                        </a>
+                        <div class="mt-2">
+                            <ul class="list-unstyled list-group list-group-horizontal">
+                                <li class="review-date mr-3 dark-grey-text "><i
+                                        class="fas fa-clock"></i>&nbsp;05/10/2019</li>
+                                <li class="mr-3 dark-grey-text">Semester
+                                    <span class=" badge badge-pill badge-default">Fall</span>
+                                </li>
+                                <li class="mr-3 dark-grey-text">Grade <span
+                                        class=" badge badge-pill badge-danger">A</span></li>
+                                <li class="mr-3 dark-grey-text">Quality &nbsp;<i class="rating-3"></i>&nbsp;</li>
+                                <li class="mr-3 dark-grey-text">Difficulty &nbsp;<i class="rating-4"></i>&nbsp;</li>
+                            </ul>
+                        </div>
+                        <p class="pt-4 pb-3">This is definately an amazing class. You can learn a lot!</p>
+                        <!-- Tags -->
+                        <p class="">
+                            <div class="chip">
+                                Excellent
+                            </div>
+                            <div class="chip">
+                                Inspirational
+                            </div>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </section>
+        <!--/Section: Comments list-->
+
+
+        <!--Section: Leave a reply (Logged In User)-->
+        {{!-- <section class="pb-5 mt-5 wow fadeIn" data-wow-delay="0.3s">
+
+            <!--Leave a reply form-->
+            <div class="reply-form">
+                <h3 class="text-center my-5 h3 pt-3">Leave a reply </h3>
+                <p class="text-center">(Logged In User)</p>
+
+                <!--Third row-->
+                <div class="row text-center text-md-left">
+                    <!--Image column-->
+                    <div class="col-sm-2 col-12 mb-md-0 mt-4">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (32).jpg" alt="Sample avatar image"
+                            class="img-fluid avatar rounded-circle z-depth-2">
+                    </div>
+                    <!--/.Image column-->
+
+                    <!--Content column-->
+                    <div class="col-sm-10 col-12">
+                        <div class="md-form">
+                            <textarea type="text" id="form-mess" class="md-textarea form-control" rows="3"></textarea>
+                            <label for="form-mess">Your message</label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 text-center mt-4">
+                        <button class="btn btn-pink btn-rounded">Submit</button>
+                    </div>
+                    <!--/.Content column-->
+
+                </div>
+                <!--/.Third row-->
+            </div>
+            <!--/.Leave a reply form-->
+
+        </section> --}}
+        <!--/Section: Leave a reply (Logged In User)-->
+
+    </div>
+
+</main>
+<!--Main Layout-->
+
+
+<!--Modal For Add Review-->
+<div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100">Add Review</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-12 mt-3">
+                        <form id="reviewForm" method="POST" action="/addReview">
+                        <input type="text" id="currentClass" name="currentClass" class="d-none">
+                            <div class="form-group">
+                                <p class="form-text">
+                                    <span class="h5">You are adding reviews for</span>
+                                </p>
+                                <div class="card z-depth-0 border">
+                                    <div class="card-body">
+                                        <div class="card-text">
+                                            <a>{{course.classUniversity}}</a>
+                                            <span class="ml-2 mr-2">|</span>
+                                            <a>{{course.className}}</a>
+                                            <span class="ml-2 mr-2">|</span>
+                                            <a>{{course.classCode}}</a>
+                                            <span class="ml-2 mr-2">|</span>
+                                            <a>{{course.classSection}}</a>
+                                            <span class="ml-2 mr-2">|</span>
+                                            <a>{{course.professor}}</a>
+                                            <a id="classID" class="d-none">{{course.classID}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="form-text mb-3 mt-4">
+                                    <span class="h5">Rating</span>
+                                    <hr>
+                                </p>
+                                <div class="form-row mb-2 p-3">
+                                    <div class="col">
+                                        <p class="h6">Quality <i class="rating-rate-quality"></i></p>
+                                        <input class="d-none" type="text" name="classQuality" id="classQuality">
+                                    </div>
+                                    <div class="col">
+                                        <p class="h6">Difficulty <i class="rating-rate-difficulty"></i></p>
+                                        <input class="d-none" type="text" name="classDifficulty" id="classDifficulty">
+                                    </div>
+                                </div>
+                                <p class="form-text">
+                                    <a class="h5">Grading</a>
+                                    <hr>
+                                </p>
+                                <div class="form-row mb-2 p-1">
+                                    <div class="col-md-4">
+                                        <select name="semester" class="mdb-select md-form"
+                                            style="font-family: Istok Web;">
+                                            <option value="" disabled selected>Semester</option>
+                                            <option value="fall">Fall</option>
+                                            <option value="spring">Spring</option>
+                                            <option value="summer">Summer</option>
+                                            <option value="winter">Winter</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 offset-2">
+                                        <select name="grade" class="mdb-select md-form" style="font-family: Istok Web;">
+                                            <option value="" disabled selected>Your final grade: (optional)</option>
+                                            <option value="A">A</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B">B</option>
+                                            <option value="B-">B-</option>
+                                            <option value="C">C</option>
+                                            <option value="C-">C-</option>
+                                            <option value="D">D</option>
+                                            <option value="D-">D-</option>
+                                            <option value="F">F</option>
+                                            <option value="P/F">P/F</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- TAGS -->
+                                <p class="form-text">
+                                    <a class="h5">Tags</a>
+                                    <input id="tagsInput" name="tags" class="d-none">
+                                    <hr>
+                                </p>
+                                <div class="row d-flex justify-content-start p-2">
+                                    <div class="col-md-12">
+                                        <div id="tags" class="chips chips-placeholder chips-autocomplete"></div>
+                                    </div>
+                                </div>
+                                <!-- end TAGS -->
+                                <p class="form-text mb-3">
+                                    <span class="h5">Review</span>
+                                </p>
+                                <div class="form-group shadow-textarea mb-3 p-1">
+                                    <textarea name="reviews" class="form-control z-depth-1"
+                                        id="exampleFormControlTextarea6" rows="3"
+                                        placeholder="Write your reviews here."></textarea>
+                                    <label for="exampleFormControlTextarea6"></label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="submitBtn" type="submit" form="reviewForm"
+                    class="btn btn-rounded btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Footer-->
+<footer class="page-footer font-small light fixed-bottom">
+
+    <!--Footer Links-->
+    <div class="container">
+        <!--/First row-->
+
+    </div>
+    <!--/Footer Links-->
+
+    <!--Copyright-->
+    <div class="page-footer py-3 text-center">
+        <div class="container-fluid d-flex justify-content-end">
+            <a class="btn btn-sm btn-rounded btn-primary" data-toggle="modal" data-target="#addReviewModal">Add
+                review</a>
+            <a class="btn btn-sm btn-rounded btn-default"><i class="fas fa-plus mr-1"></i>Follow</a>
+            </a>
+        </div>
+    </div>
+    <!--/.Copyright-->
+
+</footer>
+<!--/Footer-->
+
+<script>
+
+    // for test purpose
+    let states = [
+        'excellent',
+        'hard homework',
+        'clear',
+        'engaging'
+    ];
+
+
+
+    $(document).ready(() => {
+        new WOW().init();
+        $('.mdb-select').materialSelect();
+
+        // Start Initialization
+
+        // Set Rating for Read
+        for (let i = 1; i <= 2; i++) {
+            $(`.rating-${i}`).starRating({
+                useFullStars: false,
+                starShape: 'rounded',
+                starSize: 20
+            });
+            $(`.rating-${i}`).starRating('setRating', 5)
+            $(`.rating-${i}`).starRating('setReadOnly', false);
+        }
+
+        // Set Star Rating for Write
+        $(`.rating-rate-quality`).starRating({
+            useFullStars: false,
+            starShape: 'rounded',
+            starSize: 20,
+            minRating: 0,
+            disableAfterRate: false,
+            callback: function (currentRating, $el) {
+                $('#classQuality').val(currentRating);
+            }
+        });
+
+        $(`.rating-rate-difficulty`).starRating({
+            useFullStars: false,
+            starShape: 'rounded',
+            starSize: 20,
+            minRating: 0,
+            disableAfterRate: false,
+            callback: function (currentRating, $el) {
+                $('#classDifficulty').val(currentRating);
+            }
+        });
+
+        const tags = [];
+
+        // Tags 
+        $('#tags').materialChip({
+            placeholder: 'add more tags',
+            secondaryPlaceholder: 'Type and Hit Enter to +Tag',
+            dataChip: states
+        });
+
+        $('.chips').on('chip.add', function (e, chip) {
+            tags.push(chip.tag);
+        });
+
+        $('.chips').on('chip.delete', function (e, chip) {
+            tags.splice(tags.indexOf(chip.tag), 1);
+        });
+
+        // Submit Tags
+        $('#submitBtn').click(function (e) {
+            $('#tagsInput').val(`${tags}`);
+            $('#currentClass').val($('#classID').text());
+            console.log('clicked');
+        });
+
+    });
+
+
+
+</script>

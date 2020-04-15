@@ -1,5 +1,4 @@
-
-// Password Hasing
+// Password Hashing
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -19,8 +18,21 @@ function checkPassword(password, hash, cb){
     });
 }
 
+function isValidPassword(user, password) {
+    return bcrypt.compareSync(password, user.password);
+}
+
+
+function getRandom() {
+    const randomImgIndex = Math.floor(Math.random() * Math.floor(3));
+    return {
+        url: `/random/${randomImgIndex}.png`,
+    };
+}
 
 module.exports = {
     hashPassword: hashPassword,
-    checkPassword: checkPassword
-}
+    checkPassword: checkPassword,
+    isValidPassword: isValidPassword,
+    getRandom: getRandom
+};
