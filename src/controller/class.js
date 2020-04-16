@@ -1,21 +1,29 @@
 // user.js will contain the methods for user operation.
 const mongoose = require("mongoose"),
-  Class = mongoose.model("Class"),
-  university = require("./university");
+    Class = mongoose.model("Class"),
+    utils = require('../utils/utils'),
+    review = require('../controller/review'),
+    university = require("./university");
 
 // Routing
 
 // CLASSPAGE
 exports.getViewClass = (req, res) => {
+  // Store last page visited in session
+  req.session.redirectTo = req.originalUrl;
   // If there is a query
   if (req.params.classId) {
-    Class.findOne({classID: req.params.classId}, (err, course)=>{
+    Class.findOne({_id: req.params.classId}, async (err, course)=>{
       // Error Handling
       if(err || course === null){
         req.flash('error', 'Unable to Find the Class');
         res.redirect('/error');
         return errHandle(err)
       }
+      // Get Reviews
+      const classReview = await review.getReview(req, res, req.params.classId);
+      // We want to get user info as well, merge into the review
+      const mergedReviews = await review.getReviewUserInfo(classReview.reviews);
       if (req.user) {
         // User Signed In
         res.render("Class/classPage", {
@@ -23,11 +31,15 @@ exports.getViewClass = (req, res) => {
           signedOut: false,
           avatar: req.user.userAvatarUrl,
           course: course,
+          reviews: mergedReviews,
+          reviewNum: mergedReviews.length
         });
       } else {
         res.render("Class/classPage", {
           signedOut: true,
-          course: course
+          course: course,
+          reviews: mergedReviews,
+          reviewNum: mergedReviews.length
         });
       }      
     });
@@ -36,7 +48,9 @@ exports.getViewClass = (req, res) => {
     req.flash('error', 'Unable to Find the Class');
     res.redirect('/error');
   }
-}
+};
+
+
 
 
 
@@ -82,6 +96,7 @@ exports.postAddClass = (req, res) => {
       Date.now(),
       0.0,
       0.0,
+      0.0,
       "N/A",
       0,
       [],
@@ -92,8 +107,7 @@ exports.postAddClass = (req, res) => {
       }
     );
   } catch (e) {
-    console.log(e);
-    res.render("error", { Error: "Server Error." });
+    return utils.errHandle(e, req, res)
   }
 };
 
@@ -113,14 +127,14 @@ function addClass(
   dateCreated,
   overallClassQualityRate,
   overallClassDifficultyRate,
-  overallGrade,
+  overallGradeScore,
+  overallGradeLetter,
   popularity,
   reviews,
   isApproved,
   cb
 ) {
   const newClass = new Class({
-    classID: new mongoose.mongo.ObjectID(),
     className: className,
     classCode: classCode,
     classSemester: classSemester,
@@ -135,7 +149,8 @@ function addClass(
     dateCreated: dateCreated,
     overallClassQualityRate: overallClassQualityRate,
     overallClassDifficultyRate: overallClassDifficultyRate,
-    overallGrade: overallGrade,
+    overallGradeScore: overallGradeScore,
+    overallGradeLetter: overallGradeLetter,
     popularity: popularity,
     reviews: reviews,
     isApproved: isApproved,
@@ -145,12 +160,12 @@ function addClass(
     if(err){
       return errHandle(err)
     }else{
-      console.log(`Class ID ${currentClass.classID} Saved.`);
+      console.log(`Class ID ${currentClass._id} Saved.`);
     }
     // Update the university
     university.University.findOneAndUpdate(
       { universityName: currentClass.classUniversity },
-      { $push: { universityClasses: currentClass.classID } },
+      { $push: { universityClasses: currentClass._id } },
       (err, res) => {
         if(err){
           return errHandle(err)

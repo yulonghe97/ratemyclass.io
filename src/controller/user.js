@@ -23,6 +23,10 @@ exports.indexPage = (req, res) => {
 
 // User Login/Logout
 exports.userLoginGet = (req, res) => {
+    if(req.user){
+        res.redirect('/');
+        return
+    }
     res.render("userLogin.hbs", {
         Error: req.flash('message'),
         signedOut: true
@@ -31,12 +35,11 @@ exports.userLoginGet = (req, res) => {
 
 // authentication middleware
 exports.userLoginPost = (req, res, next) => {
-    console.log('passport.....');
     passport.authenticate('login',
         {
             failureFlash: true,
             failureRedirect: '/userLogin',
-            successRedirect: '/profile'
+            successRedirect: '/redirect'
         })(req, res, next);
 };
 
@@ -49,6 +52,10 @@ exports.logout = (req, res) => {
 
 // User Registration
 exports.userRegGet = (req, res) => {
+    if(req.user){
+        res.redirect('/');
+        return
+    }
     res.render("userReg.hbs", {signedOut: true});
 };
 exports.userRegPost = (req, res) => {
@@ -113,7 +120,6 @@ function regUser(
         username: username,
         password: password,
         userEmail: userEmail || "",
-        userID: new mongoose.mongo.ObjectID(),
         userNickname: userNickname,
         userUniversity: userUniversity,
         userDateCreated: Date.now(),
@@ -122,9 +128,9 @@ function regUser(
         reviews: [],
     });
     newUser.save((err, user) => {
-        err ? console.log(err) : console.log(`User ID ${user.userID} Saved.`);
+        err ? console.log(err) : console.log(`User ID ${user._id} Saved.`);
         // update the related university with new user
-        university.University.findOneAndUpdate({universityName: user.userUniversity}, {$push: {universityUsers: user.userID}}, (err, res) => {
+        university.University.findOneAndUpdate({universityName: user.userUniversity}, {$push: {universityUsers: user._id}}, (err, res) => {
             err ? console.log(err) : console.log(`User Added to the ${res.universityName}`);
         });
         // pass back the user
@@ -147,6 +153,8 @@ exports.checkAuthentication = (req, res, next) => {
         next();
     }else{
         req.flash('message', 'Unauthenticated Access. Please Login.');
+        // Store user's last visit
+        req.session.redirectTo = req.originalUrl;
         res.redirect('/userLogin');
     }
 };

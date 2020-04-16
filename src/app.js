@@ -7,11 +7,19 @@ const express = require("express"),
     passport = require('passport'),
     flash = require('connect-flash'),
     routes = require('./routes');
+    hbs = require('hbs');
+
+
+// Hbs configuration
+hbs.registerHelper('isBlank', function(value) {
+    return value !== '';
+});
 
 // enable sessions
 const session = require("express-session");
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "hbs");
+app.set('json spaces', 2);
 app.use(session({
     secret: "secret cookies",
     resave: true,
@@ -29,14 +37,4 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(routes);
-
-function clientErrorHandler (err, req, res, next) {
-    if (req.xhr) {
-       res.status(500).send({ error: 'Server Error' })
-     } else {
-       next(err)
-    }
- }
- 
-app.use(clientErrorHandler);
 app.listen(3000);

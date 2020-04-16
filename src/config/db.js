@@ -3,7 +3,6 @@ mongoose.set('useFindAndModify', false);
 
 // class objects that records the information of each school-class
 const classSchema = new mongoose.Schema({
-    classID: mongoose.Schema.Types.ObjectID,
     className: {type: String, required:true},
     classCode: {type: String, required:true},
     classSemester:{type: String, required:true},
@@ -18,19 +17,22 @@ const classSchema = new mongoose.Schema({
     dateCreated: Date,
     overallClassQualityRate: {type: Number, min: 0.0, max: 5.0},
     overallClassDifficultyRate: {type: Number, min: 0.0, max: 5.0},
-    overallGrade: String,
+    overallGradeScore: {type: Number, default:0.0},
+    overallGradeLetter:{type:String, default:'N/A'},
     popularity: Number,
-    reviews: [{type: mongoose.Schema.Types.ObjectID, ref:'Review'}],
+    reviews: [{type: mongoose.Schema.Types.ObjectId, ref:'Review'}],
     // default value for isApproved is set to true
     isApproved: {type: Boolean, default: true}	
 },{_id:true});
 
 // Review class that contains the information of each review
 const reviewSchema = new mongoose.Schema({
-    reviewID: mongoose.Schema.Types.ObjectID,
-    reviewUser: {type: mongoose.Schema.Types.ObjectID, ref:'User'},
+    reviewUser: {type: String, required:true},
+    reviewUserId:{type: mongoose.Schema.Types.ObjectId, ref:'User'},
     reviewDate: Date,
-    reviewClass: {type: mongoose.Schema.Types.ObjectID, ref:'Class'},
+    reviewClass: {type: mongoose.Schema.Types.ObjectId, ref:'Class'},
+    reviewSemester: String,
+    reviewGrade: String,
     qualityRating: {type: Number, min: 0.0, max: 5.0},
     difficultyRating: {type: Number, min: 0.0, max: 5.0},
     tags: [String],
@@ -42,28 +44,25 @@ const userSchema = new mongoose.Schema({
     username:{type: String, required:true, index:{unique: true}},
     password:{type: String, required:true},
     userEmail: String,
-    userID: mongoose.Schema.Types.ObjectID,
     userNickname: {type:String, required:true},
     userUniversity: {type: String, required:true},
     userDateCreated: Date,
     userAvatarUrl:{type:String, default: "https://miro.medium.com/max/360/1*W35QUSvGpcLuxPo3SRTH4w.png"},
-    followedClass: [{type: mongoose.Schema.Types.ObjectID, ref:'Class'}],
-    reviews: [{type: mongoose.Schema.Types.ObjectID, ref:'Review'}]
+    followedClass: [{type: mongoose.Schema.Types.ObjectId, ref:'Class'}],
+    reviews: [{type: mongoose.Schema.Types.ObjectId, ref:'Review'}]
 }, {_id:true});
 
 // University Information
 const universitySchema = new mongoose.Schema({
-    universityID:mongoose.Schema.Types.ObjectID,
     universityName:{type: String, required:true},
     universityAbbr:{type: String, required:true},
     universityDateCreated:Date,
-    universityClasses:[{type: mongoose.Schema.Types.ObjectID, ref:'Class'}],
-    universityUsers:[{type: mongoose.Schema.Types.ObjectID, ref:'User'}]
+    universityClasses:[{type: mongoose.Schema.Types.ObjectId, ref:'Class'}],
+    universityUsers:[{type: mongoose.Schema.Types.ObjectId, ref:'User'}]
 }, {_id:true});
 
 // Admin Information for management
 const adminSchema = new mongoose.Schema({
-    adminID:mongoose.Schema.Types.ObjectID,
     adminUsername:{type: String, required:true},
     adminPassword:{type: String, required:true},
     adminName:{type: String, required:true},
@@ -74,18 +73,11 @@ const adminSchema = new mongoose.Schema({
     universityManage: {type: Boolean, required:true, default: true}
 });
 
-const movieSchema = new mongoose.Schema({
-    id: String,
-    name: String,
-    genre: String
-});
-
 
 // Register Schema
-const Movie = mongoose.model('Movie', movieSchema);
 const Class = mongoose.model('Class', classSchema);
 const Review = mongoose.model('Review', reviewSchema);
-const User = mongoose.model('User', Schema);
+const User = mongoose.model('User', userSchema);
 const University = mongoose.model('University', universitySchema);
 
 // mongodb driver
@@ -126,7 +118,9 @@ connectDB();
 
 // export User module
 module.exports = {
-    User: User
+    User: User,
+    Class: Class,
+    Review: Review
 };
 
 

@@ -1,19 +1,23 @@
 const mongoose = require("mongoose");
 const University = mongoose.model("University");
+const utils = require('../utils/utils');
 
 
-async function saveUniversity(universityName, universityAbbr) {
-    const id = new mongoose.mongo.ObjectID();
+function saveUniversity(universityName, universityAbbr,cb) {
     const newUniversity = new University({
-        universityID: id,
         universityName: universityName,
         universityAbbr: universityAbbr,
         universityDateCreated: Date.now(),
         universityClasses: [],
         universityUsers: [],
     });
-    await newUniversity.save((err, university)=>{
-        err ? console.log(err) : console.log(`University ID ${university.universityID} Saved.`);
+    newUniversity.save((err, university)=>{
+        if(err){
+            console.log(err);
+            return err;
+        }
+        cb(university);
+        console.log(`University ID ${university._id} Saved.`);
     });
 }
 

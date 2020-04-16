@@ -35,18 +35,24 @@ router
     .get(user.checkAuthentication, Class.getAddClass)
     .post(user.checkAuthentication, Class.postAddClass);
 
-router.get('/class/:classId', Class.getViewClass)
+router.get('/class/:classId', Class.getViewClass);
 
 // API
 router.get('/api/checkUser', api.checkUser);
 router.get('/api/checkLogin', api.checkLogin);
 router.get('/api/randomAvatar', api.getRandomAvatar);
+router.get('/api/getReviews/:classId', api.getReview);
 
+router.get('/api/saveU/:name/:abbr', api.saveUniversity);
 
 // Error Page
 router.get('/error', (req, res)=>{res.render('error', {Error: req.flash('error')})});
 
-// Test 
-router.get('/class/:classId', (req, res)=>{res.send(req.params)});
+// Redirect Handler
+router.get('/redirect', (req, res) => {
+      req.session.redirectTo ? res.redirect(req.session.redirectTo) : res.redirect('/profile');
+});
+
+
 
 module.exports = router;
