@@ -133,7 +133,7 @@
     </div>
 </div>
 
-<!-- MODEL-->
+<!-- SUCCESS MODEL-->
 <div class="modal fade" id="classAddedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-notify modal-success" role="document">
@@ -194,7 +194,7 @@
     $('#submitBtn').click(() => {
         $('#classInfoText').text($('#editor'));
         $('#submitBtn').text('loading ').append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
-    })
+    });
 
     // Editor
     var quill = new Quill('.quill-textarea', {
@@ -203,7 +203,6 @@
     });
 
     quill.on('text-change', function (delta, oldDelta, source) {
-        console.log(quill.container.firstChild.innerHTML)
         $('#detail').val(quill.container.firstChild.innerHTML);
     });
 
