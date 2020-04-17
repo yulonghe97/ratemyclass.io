@@ -47,6 +47,10 @@ router.get('/api/saveU/:name/:abbr', api.saveUniversity);
 
 // Error Page
 router.get('/error', (req, res)=>{res.render('error', {Error: req.flash('error')})});
+router.get('*', (req, res)=>{
+      req.flash('error','404 page not found');
+      res.redirect('/error')
+});
 
 // Redirect Handler
 router.get('/redirect', (req, res) => {
