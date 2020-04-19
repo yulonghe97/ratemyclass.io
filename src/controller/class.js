@@ -103,8 +103,10 @@ exports.postAddClass = (req, res) => {
       [],
       true,
       // Callback after Class Added.
-      () => {
-        setTimeout(() => res.redirect("/"), 2000);
+      (currentClass) => {
+        setTimeout(() => {
+            res.redirect(`/addSuccess/${currentClass._id}`)
+        }, 2000);
       }
     );
   } catch (e) {
@@ -181,7 +183,11 @@ function addClass(
 
 
 exports.getAddSuccess = (req, res)=>{
-  res.render('Class/addSuccess');
+  if(req.params.classId){
+    res.render('Class/addSuccess',{id: req.params.classId});
+  }else{
+    res.redirect('/redirect');
+  }
 };
 
 // Class Search

@@ -76,7 +76,17 @@ const adminSchema = new mongoose.Schema({
 
 
 classSchema.plugin(mongoose_fuzzy_searching, {
-    fields:['className', 'classCode', 'professor']
+    fields: [{
+        name: 'className',
+        prefixOnly: true,
+        minSize: 2,
+    }, {
+        name: 'classCode',
+        minSize: 2,
+    }, {
+        name: 'professor',
+        prefixOnly: true,
+    }]
 });
 
 

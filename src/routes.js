@@ -7,8 +7,8 @@ const router = require('express').Router(),
       review = require('./controller/review');
 
 
-// Index Page
-router.get('/', user.indexPage);
+// Index Page, //underdevelopment
+router.get('/', search.getSearchPage);
 
 // Search Page
 router.get('/search', search.getSearchPage);
@@ -36,7 +36,7 @@ router
     .post(user.checkAuthentication, Class.postAddClass);
 
 router.get('/class/:classId', Class.getViewClass);
-router.get('/addSuccess', Class.getAddSuccess);
+router.get('/addSuccess/:classId', Class.getAddSuccess);
 
 // API
 router.get('/api/checkUser', api.checkUser);

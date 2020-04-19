@@ -8,7 +8,6 @@
     <title>Hippo Rate My Class</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- font -->
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/mdb.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
@@ -18,67 +17,68 @@
 <body>
 <!--Main Navigation-->
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark primary-color" style="font-size: medium">
-        <a class="navbar-brand text-white" href="/"><i class="fas fa-hippo"><strong>&nbsp;&nbsp;rmc.io </strong></i></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto ">
-                <li id="homeBtn" class="nav-item">
-                    <a class="nav-link" href="/"><i class="fas fa-home"></i></a>
-                </li>
-                <li id="classBtn" class="nav-item">
-                    <a  class="nav-link" href="/search"><i class="fas fa-search">&nbsp;Find Class</i></a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto ml">
+    <div class="container-fluid pt-3">
+        <nav class="navbar navbar-expand-lg navbar-dark z-depth-0" style="font-size: medium">
+            <a class="navbar-brand text-dark" href="/"><i class="fas fa-hippo"><strong class="text-dark">&nbsp;&nbsp;RateMyClass.io </strong></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<!--                <ul class="navbar-nav  ml-auto">-->
+<!--                    <li id="homeBtn" class="nav-item p-2 hoverable">-->
+<!--                        <a class="nav-link text-dark " href="/"><i class="fas fa-home"> Home</i></a>-->
+<!--                    </li>-->
+<!--                    <li id="classBtn" class="nav-item p-2 hoverable">-->
+<!--                        <a  class="nav-link text-dark" href="/search"><i class="fas fa-search">&nbsp;Find Class</i></a>-->
+<!--                    </li>-->
+<!--                    <li id="classBtn" class="nav-item p-2 hoverable">-->
+<!--                        <a  class="nav-link text-dark" href="/search">&nbsp;About us</i></a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+                <ul class="navbar-nav ml-auto">
 
-                {{#if avatar}}
-                <li class="nav-item avatar dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        <img src="{{avatar}}" class="rounded-circle z-depth-0"
-                             alt="avatar image">
-                        &nbsp;
-                        {{#if userNickname}}
-                            Hi, {{userNickname}}
-                        {{/if}}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-primary"
-                         aria-labelledby="navbarDropdownMenuLink-55">
-                        <a class="dropdown-item" href="/profile">Profile</a>
-                        <a class="dropdown-item" href="/addClass">Add Class</a>
-                        <a class="dropdown-item" href="/logout">Sign Out</a>
-                    </div>
-                </li>
-                {{/if}}
-
-                {{#if signedOut}}
-                    <li class="nav-item">
-                        <a id="loginBtn" class="nav-link" href="/userLogin">Login <span class="sr-only">(current)</span></a>
+                    <li id="homeBtn" class="nav-item p-2">
+                        <a class="nav-link text-dark " href="/"><i class="fas fa-home"> Home</i></a>
                     </li>
-                    <li class="nav-item">
-                        <a id="regBtn" class="nav-link " href="/userReg">Register</a>
+                    <li id="classBtn" class="nav-item p-2">
+                        <a  class="nav-link text-dark" href="/search"><i class="fas fa-search">&nbsp;Find Class</i></a>
                     </li>
-                {{/if}}
+                    <li id="classBtn" class="nav-item p-2 mr-4">
+                        <a  class="nav-link text-dark" href="/search">&nbsp;About</a>
+                    </li>
+
+                    {{#if avatar}}
+                        <li class="nav-item avatar dropdown text-dark p-2 rounded" style="border-width: 1px !important;">
+                            <a class="nav-link dropdown-toggle text-dark" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <img src="{{avatar}}" class="rounded-circle z-depth-0"
+                                     alt="avatar image">
+                                &nbsp;
+                                {{#if userNickname}}
+                                    Hi, {{userNickname}}
+                                {{/if}}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg-right dropdown-primary text-dark"
+                                 aria-labelledby="navbarDropdownMenuLink-55">
+                                <a class="dropdown-item text-dark" href="/profile">Profile</a>
+                                <a class="dropdown-item text-dark" href="/addClass">Add Class</a>
+                                <a class="dropdown-item text-dark" href="/logout">Sign Out</a>
+                            </div>
+                        </li>
+                    {{/if}}
+
+                    {{#if signedOut}}
+                        <li class="nav-item">
+                            <a id="loginBtn" class="nav-link btn btn-outline-black rounded text-dark p-2" href="/userLogin">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                    {{/if}}
 
 
-            </ul>
-            <ul class="navbar-nav nav-flex-icons d-none">
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-twitter"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"><i class="fab fa-instagram"></i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                </ul>
+            </div>
+        </nav>
+    </div>
 </header>
 <!--Main Navigation-->
 <script type="text/javascript" src="/js/jquery.min.js"></script>

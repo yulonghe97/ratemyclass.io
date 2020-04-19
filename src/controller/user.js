@@ -39,7 +39,7 @@ exports.userLoginPost = (req, res, next) => {
         {
             failureFlash: true,
             failureRedirect: '/userLogin',
-            successRedirect: '/redirect'
+            successRedirect: '/'
         })(req, res, next);
 };
 

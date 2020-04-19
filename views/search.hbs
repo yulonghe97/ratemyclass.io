@@ -3,9 +3,9 @@
 <link rel="stylesheet" type="text/css" href="/plugins/rating/css/star-rating-svg.css">
 
 
-<div class="container d-md-flex align-items-stretch mt-5">
+<div class="container d-md-flex align-items-stretch mt-5 animated fadeIn">
     <!-- Page Content  -->
-    <div class="container-fluid">
+    <div class="container-fluid justify-content-center">
         <div id="content" class="pt-5">
             <div class="row d-flex">
                 <div class="col col-md-12">
@@ -13,56 +13,25 @@
                     <form id="searchForm" class="form-inline d-flex md-form">
                         <input class="form-control form-control-lg ml-3 w-75" type="text" placeholder="Name/Code/Professor"
                                aria-label="Search">
-                            <i class="fas fa-search" aria-hidden="true"></i>
+                        <div class="d-flex justify-content-start ml-3">
+                            <div id="spinner" class="spinner-border text-primary m-1 d-none" role="status">
+                                <span class="sr-only">Loading</span>
+                            </div>
+                        </div>
                     </form>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <div id="spinner" class="spinner-grow text-primary m-1 d-none" role="status">
-                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
             <div id="result">
                 <!--Big blue-->
-            <div class="row d-flex">
-                <div class="col col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row d-flex">
-                                <div class="col-md-10">
-                                    <div class="card-title">
-                                        <h5>Apply Internet Technology</h5>
-                                    </div>
-                                    <div class="card-subtitle pt-2 pb-2 font-small text-muted">
-                                        <a>CSCI-UA-480</a>
-                                        <a class="ml-2 mr-2">|</a>
-                                        <a>Joe Versoza</a>
-                                    </div>
-                                    <div class="card-text">
-                                        <ul class="list-unstyled list-group list-group-horizontal">
-                                            <li class="mr-3 dark-grey-text">Quality &nbsp;<i class="rating-1"></i>&nbsp;</li>
-                                            <li class="mr-3 dark-grey-text">Difficulty &nbsp;<i class="rating-2"></i>&nbsp;</li>
-                                            <li class="mr-3 dark-grey-text">Avg. Grade: <span class="badge badge-pill badge-danger">A</span></li></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 d-inline-block align-middle">
-                                    <div class="card-text text-right">
-                                        <p>
-                                            <a class="ml-3 text-danger"><i class="fas fa-fire"></i></a>
-                                            <small class="text-muted">2</small>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="container mt-3">
+                    <div class="col-md-9">
+                        <img class="img-fluid" src="/img/illustration/arabica-1.png">
                     </div>
                 </div>
             </div>
-            </div>
         </div>
     </div>
-    <nav class="ml-3" id="sidebar">
+    <nav class="p-1" id="sidebar">
         <div class="p-4 pt-5 mt-2">
             <div class="form-group">
                 <!-- Material input -->
@@ -89,16 +58,13 @@
             <div class="mb-5">
                 <h5 class="text-dark p-2">Tags</h5>
                 <div class="tagcloud">
-                    <a href="#" class="tag-cloud-link">dish</a>
-                    <a href="#" class="tag-cloud-link">menu</a>
-                    <a href="#" class="tag-cloud-link">food</a>
-                    <a href="#" class="tag-cloud-link">sweet</a>
-                    <a href="#" class="tag-cloud-link">tasty</a>
-                    <a href="#" class="tag-cloud-link">delicious</a>
-                    <a href="#" class="tag-cloud-link">desserts</a>
-                    <a href="#" class="tag-cloud-link">drinks</a>
+                    <a href="#" class="tag-cloud-link">Clear</a>
+                    <a href="#" class="tag-cloud-link">Passionate</a>
+                    <a href="#" class="tag-cloud-link">Good Feedback</a>
+                    <a href="#" class="tag-cloud-link">Caring</a>
                 </div>
             </div>
+            <p class="text-dark p-2"><a class="text-muted">Can't find class? </a><a href="/addClass">Add it</a></p>
         </div>
     </nav>
 
@@ -115,29 +81,30 @@
         });
     });
 
-    // nav
-    $("#classBtn").addClass('active');
-    $(".rating-1").starRating({
-        useFullStars: true,
-        starShape: 'rounded',
-        starSize: 20
-    });
-    $('.rating-1').starRating('setRating', 2.5);
-    $('.rating-1').starRating('setReadOnly', true);
-    $(".rating-2").starRating({
-        useFullStars: true,
-        starShape: 'rounded',
-        starSize: 20
-    });
-    $('.rating-2').starRating('setRating', 5);
-    $('.rating-2').starRating('setReadOnly', true);
-
     // API FETCH
+
+    function noResult() {
+
+        const showNoResult = `<div class="container mt-3 justify-content-center text-center animated bounce">
+
+                                <div class="col-md-8">
+                                    <img class="img-fluid" src="/img/illustration/arabica-12.png">
+                                    <p>
+                                    <h2 class="p-2" style="font-family: Istok Web">No Class Found</h2>
+                                    </p>
+                                    <p>Unable to find you class? <a href="/addClass">Add it.</a></p>
+
+                                </div>
+                            </div>
+                            `;
+
+        $("#result").append(showNoResult);
+    }
 
     function addResult(currentClass,num){
         const result = `<div class="row d-flex">
                 <div class="col col-md-12 mt-2">
-                    <div class="card animated fadeInUp hoverable">
+                    <div class="card z-depth-0 animated fadeIn hoverable">
                         <div class="card-body">
                             <div class="row d-flex">
                                 <div class="col-md-10">
@@ -160,7 +127,7 @@
                                 <div class="col-md-2 d-inline-block align-middle">
                                     <div class="card-text text-right">
                                         <p>
-                                        <a class="ml-3 text-danger"><i class="fas fa-fire"></i></a>
+                                        <a class="ml-3 text-muted"><i class="fas fa-comment"></i></a>
                                         <small class="text-muted">${currentClass.reviews.length}</small>
                                         </p>
                                     </div>
@@ -169,6 +136,7 @@
                             <a href="/class/${currentClass._id}" class="stretched-link"></a>
                         </div>
                     </div>
+                    <hr>
                 </div>`;
 
         // Calculate Half Rates
@@ -214,17 +182,23 @@
     }
 
     $("#searchForm").keyup(function (event) {
-
-        $("#result").empty();
-        $("#spinner").removeClass('d-none');
-        $.getJSON(`/api/searchClass/${event.target.value}`, function (data) {
-            for(let i=0; i<data.length;i++){
-                addResult(data[i],i);
-            }
-            setTimeout(function () {
-                $("#spinner").addClass('d-none');
-            },800);
-        });
+        $("#spinner").removeClass('d-none').addClass('animated','fadeIn');
+        // buffer time
+        setTimeout(function () {
+            $("#result").empty();
+            $.getJSON(`/api/searchClass/${event.target.value}`, function (data) {
+                if(data.length < 1){
+                    noResult();
+                }else{
+                    for(let i=0; i<data.length;i++){
+                        addResult(data[i],i);
+                    }
+                }
+                setTimeout(function () {
+                    $("#spinner").addClass('d-none');
+                },800);
+            });
+        },500);
     });
 
 

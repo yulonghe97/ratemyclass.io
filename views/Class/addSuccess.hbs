@@ -1,16 +1,31 @@
-<div class="container h-100">
-    <div class="row h-100 justify-content-center align-items-center mt-5">
+<style>
+    .align-items-center {
+        display: flex;
+        align-items: center;  /*Aligns vertically center */
+        justify-content: center; /*Aligns horizontally center */
+    }
+</style>
+
+<div class="container">
+    <div class="row p-5"></div>
+    <div class="row align-items-center mt-5">
         <div class="col-md-6 mx-auto">
-            <img class="img-fluid rounded" src="/img/illustration/pluto-upgrade.png">
+            <img class="img-fluid rounded" src="/img/illustration/addSuccess.svg">
         </div>
         <div class="col-md-6 text-center mx-auto">
-            <p class="h1">Class Added <i class="fas fa-check-square text-success"></i></p>
-            <p class="p-3">Thanks for your contribution!</p>
-            <p class="grey lighten-3 text-dark p-3 rounded">http://ratemyclass.io/class/5e99eaf18eae5f5f4a4da60c <a></a></p>
-            <ul class="fa-ul p-3">
-                <li><span class="fa-li"><i class="fas fa-feather"></i></span>Write Review for this class</li>
-                <li><span class="fa-li"><i class="fas fa-share-alt"></i></span>Share this class with your friend</li>
-            </ul>
+            <div class="card p-3 z-depth-0 rounded">
+                <div class="card-body">
+                    <p class="h1">Class Added</p>
+                    <p class="p-3">Thanks for your contribution!</p>
+                    <p class="border border-dark text-dark mx-4 pt-3 pb-3 rounded">http://ratemyclass.io/class/{{id}}</a></p>
+                    <ul class="fa-ul p-3">
+                        <li><span class="fa-li"><i class="fas fa-feather"></i></span>Write Review for this class</li>
+                        <li><span class="fa-li"><i class="fas fa-hand-point-right"></i></span>Follow this class for updates</li>
+                        <li><span class="fa-li"><i class="fas fa-share-alt"></i></span>Share this class with your friend</li>
+                    </ul>
+                    <a href="http://ratemyclass.io/class/{{id}}" class="btn btn-sm btn-outline-dark btn-rounded">Go to Class Page</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
