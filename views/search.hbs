@@ -184,13 +184,13 @@
     function delay(fn, ms) {
         let timer = 0;
         return function(...args) {
+            $("#spinner").removeClass('d-none').addClass('animated','fadeIn');
             clearTimeout(timer);
             timer = setTimeout(fn.bind(this, ...args), ms || 0)
         }
     }
 
     $("#searchForm").keyup(delay(function (event) {
-        $("#spinner").removeClass('d-none').addClass('animated','fadeIn');
             $("#result").empty();
             $.getJSON(`/api/searchClass/${event.target.value}`, function (data) {
                 if(data.length < 1){
