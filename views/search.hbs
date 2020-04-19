@@ -181,10 +181,16 @@
 
     }
 
-    $("#searchForm").keyup(function (event) {
+    function delay(fn, ms) {
+        let timer = 0;
+        return function(...args) {
+            clearTimeout(timer);
+            timer = setTimeout(fn.bind(this, ...args), ms || 0)
+        }
+    }
+
+    $("#searchForm").keyup(delay(function (event) {
         $("#spinner").removeClass('d-none').addClass('animated','fadeIn');
-        // buffer time
-        setTimeout(function () {
             $("#result").empty();
             $.getJSON(`/api/searchClass/${event.target.value}`, function (data) {
                 if(data.length < 1){
@@ -198,8 +204,7 @@
                     $("#spinner").addClass('d-none');
                 },800);
             });
-        },500);
-    });
+    },500));
 
 
 </script>
