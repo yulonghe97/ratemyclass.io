@@ -36,12 +36,15 @@ router
     .post(user.checkAuthentication, Class.postAddClass);
 
 router.get('/class/:classId', Class.getViewClass);
+router.get('/addSuccess', Class.getAddSuccess);
 
 // API
 router.get('/api/checkUser', api.checkUser);
 router.get('/api/checkLogin', api.checkLogin);
-router.get('/api/randomAvatar', api.getRandomAvatar);
+// router.get('/api/:seed', api.getRandomAvatar);
 router.get('/api/getReviews/:classId', api.getReview);
+      // Class Search
+router.get('/api/searchClass/:query', api.searchClass);
 
 router.get('/api/saveU/:name/:abbr', api.saveUniversity);
 

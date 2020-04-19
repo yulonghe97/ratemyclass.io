@@ -3,6 +3,7 @@
 const user = require('../controller/user'),
       university = require('../controller/university'),
       utils = require('../utils/utils'),
+      Class = require('../controller/class'),
       db = require('../config/db'),
       Review = require('../controller/review');
 
@@ -50,6 +51,14 @@ exports.saveUniversity = (req, res)=>{
 };
 
 exports.getRandomAvatar = (req, res) =>{
-    res.json(utils.getRandom());
+    const avatar = Avatar.newAvatar(req.params.seed);
+    res.sendFile(avatar);
 };
+
+exports.searchClass = (req, res)=>{
+  Class.searchClass(req.params.query, (result)=>{
+      res.json(result);
+  });
+};
+
 

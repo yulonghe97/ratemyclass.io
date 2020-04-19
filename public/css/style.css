@@ -17,3 +17,7 @@ ul{
 a{
    font-family: 'Istok Web';
 }
+
+.review-hover:hover{
+   background: lightgray;
+}

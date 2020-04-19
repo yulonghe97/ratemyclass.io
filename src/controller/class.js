@@ -11,6 +11,7 @@ const mongoose = require("mongoose"),
 exports.getViewClass = (req, res) => {
   // Store last page visited in session
   req.session.redirectTo = req.originalUrl;
+
   // If there is a query
   if (req.params.classId) {
     Class.findOne({_id: req.params.classId}, async (err, course)=>{
@@ -177,6 +178,20 @@ function addClass(
     cb(currentClass);
   });
 }
+
+
+exports.getAddSuccess = (req, res)=>{
+  res.render('Class/addSuccess');
+};
+
+// Class Search
+
+exports.searchClass = function (query, cb) {
+    Class.fuzzySearch(query, function (err, classes) {
+      if(err) return errHandle(err);
+      cb(classes);
+    });
+};
 
 
 // Error handling helper function

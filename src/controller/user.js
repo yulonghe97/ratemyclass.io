@@ -71,20 +71,25 @@ exports.userRegPost = (req, res) => {
             // Hash the password
             utils.hashPassword(userData.password, (hashedPassword) => {
                 // Register User
-                regUser(
-                    userData.username,
-                    hashedPassword,
-                    userData.userEmail,
-                    userData.userNickname,
-                    userData.userUniversity,
-                    userData.avatarURL
-                    , (user) => {
-                        // automatically login User after registration
-                        req.login(user, function(err) {
-                            if (err) { return next(err); }
-                            return res.redirect('/');
-                        });
-                    })
+                //download Avatar
+                console.log(userData);
+                utils.downloadAvatar(userData.avatarURL).then(()=>{
+                   const avatarPath = '/img/avatar/' + userData.avatarURL.substring(userData.avatarURL.lastIndexOf('/') + 1);
+                    regUser(
+                        userData.username,
+                        hashedPassword,
+                        userData.userEmail,
+                        userData.userNickname,
+                        userData.userUniversity,
+                        avatarPath
+                        , (user) => {
+                            // automatically login User after registration
+                            req.login(user, function(err) {
+                                if (err) { return next(err); }
+                                return res.redirect('/');
+                            });
+                        })
+                });
             });
         }
     });

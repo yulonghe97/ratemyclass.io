@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 mongoose.set('useFindAndModify', false);
 
 // class objects that records the information of each school-class
@@ -71,6 +72,11 @@ const adminSchema = new mongoose.Schema({
     tagsManage: {type: Boolean, required:true, default: true},
     classManage: {type: Boolean, required:true, default: true},
     universityManage: {type: Boolean, required:true, default: true}
+});
+
+
+classSchema.plugin(mongoose_fuzzy_searching, {
+    fields:['className', 'classCode', 'professor']
 });
 
 

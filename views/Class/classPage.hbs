@@ -33,7 +33,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="excerpt mt-5 wow fadeIn" data-wow-delay="0.3s">
+                    <div class="excerpt mt-5">
                         <h4 class="pt-4">Course Info:</h4>
                         <hr>
                         <p>
@@ -65,14 +65,14 @@
                 </div>
             </div>
         </section>
-        <section class="mb-4 pt-5 wow fadeIn" data-wow-delay="0.3s">
+        <section class="mb-4 pt-5" >
             <div class="comments-list text-center text-md-left mb-5">
                 <div class="text-center mb-4">
                     <h3 class="font-weight-bold pt-3 mb-5">Reviews <span class="badge pink">{{reviewNum}}</span></h3>
                     <hr>
                 </div>
                 {{#each reviews as |review|}}
-                <div class="row mb-4">
+                <div class="row mb-4 wow fadeIn" data-wow-delay="0.2s">
                     <div class="col-sm-2 col-12 mb-md-0 mb-3">
                         <img src="{{userAvatarUrl}}" class="avatar rounded-circle z-depth-1-half">
                     </div>
@@ -82,15 +82,15 @@
                         </a>
                         <div class="mt-2">
                             <ul class="list-unstyled list-group list-group-horizontal">
-                                <li class="review-date mr-3 dark-grey-text "><i
+                                <li class="review-date mr-3 dark-grey-text font-small"><i
                                         class="fas fa-clock"></i>&nbsp;{{review.reviewDate}}</li>
-                                <li class="mr-3 dark-grey-text">{{review.reviewSemester}}
-                                    <span class=" badge badge-pill badge-default">Fall</span>
+                                <li class="mr-3 dark-grey-text font-small">
+                                    Semester <span class=" badge badge-pill badge-default">{{review.reviewSemester}}</span>
                                 </li>
-                                <li class="mr-3 dark-grey-text">Grade <span
+                                <li class="mr-3 dark-grey-text font-small">Grade <span
                                         class=" badge badge-pill badge-primary">{{review.reviewGrade}}</span></li>
-                                <li class="mr-3 dark-grey-text">Quality &nbsp;<i class="rating-quality-{{@index}}"></i>&nbsp;</li>
-                                <li class="mr-3 dark-grey-text">Difficulty &nbsp;<i class="rating-difficulty-{{@index}}"></i>&nbsp;</li>
+                                <li class="mr-3 dark-grey-text font-small">Quality &nbsp;<i class="rating-quality-{{@index}}"></i>&nbsp;</li>
+                                <li class="mr-3 dark-grey-text font-small">Difficulty &nbsp;<i class="rating-difficulty-{{@index}}"></i>&nbsp;</li>
                             </ul>
                         </div>
                         <p class="pt-4 pb-3">{{review.reviewContent}}</p>
@@ -185,8 +185,6 @@
                                 <div class="card z-depth-0 border">
                                     <div class="card-body">
                                         <div class="card-text">
-                                            <a>{{course.classUniversity}}</a>
-                                            <span class="ml-2 mr-2">|</span>
                                             <a>{{course.className}}</a>
                                             <span class="ml-2 mr-2">|</span>
                                             <a>{{course.classCode}}</a>
@@ -350,12 +348,12 @@
                 $(`.rating-quality-${i}`).starRating({
                     useFullStars: false,
                     starShape: 'rounded',
-                    starSize: 20
+                    starSize: 18
                 });
                 $(`.rating-difficulty-${i}`).starRating({
                     useFullStars: false,
                     starShape: 'rounded',
-                    starSize: 20
+                    starSize: 18
                 });
                 $(`.rating-quality-${i}`).starRating('setRating', data.reviews[i].qualityRating);
                 $(`.rating-difficulty-${i}`).starRating('setRating', data.reviews[i].difficultyRating);

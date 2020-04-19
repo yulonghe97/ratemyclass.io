@@ -1,3 +1,7 @@
+const download = require('image-downloader');
+const path = require('path');
+
+
 // Password Hashing
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -109,6 +113,22 @@ function convertLetterGrade(letterGrade) {
 }
 
 
+async function downloadAvatar(url) {
+    const options = {
+        url: url,
+        dest: path.join(__dirname,'../../public/img/avatar')
+    };
+    try{
+        const {filename, image} = await download.image(options);
+        console.log(filename + ' avatar downloaded!')
+    }catch (e) {
+        console.log(e);
+        return e;
+    }
+};
+
+
+
 function roundNumber(num, dec) {
     return Number(num.toFixed(dec));
 }
@@ -133,5 +153,5 @@ module.exports = {
     reCalculateReviewAndGrade: reCalculateReviewAndGrade,
     AssignLetterGrade: AssignLetterGrade,
     convertLetterGrade: convertLetterGrade,
-
+    downloadAvatar: downloadAvatar
 };

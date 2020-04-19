@@ -73,39 +73,73 @@
 
         </div>
         <div class="col-md-4 text-center">
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col">
+                    <!-- Card Regular -->
+                    <div class="card card-cascade md-5 p-3 z-depth-0">
 
+                        <!-- Card image -->
+                        <div class="view view-cascade overlay">
+                            <img id="avatar" class="card-img-top" src="https://clinicforspecialchildren.org/wp-content/uploads/2016/08/avatar-placeholder.gif" alt="Card image cap">
+                            <a>
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+
+                        <!-- Card content -->
+                        <div class="card-body card-body-cascade text-center">
+
+                            <!-- Title -->
+                            <h4 id="previewNickname" class="card-title"><strong>Nickname</strong></h4>
+                            <!-- Subtitle -->
+                            <h6 id="#schoolName" class="card-text text-muted">New York University</h6>
+                            <div class="row">
+                                <div class="col-md-12 select-outline">
+                                    <select id="avatarType" class="mdb-select md-form md-outline colorful-select dropdown-primary">
+                                        <option value="" disabled selected>Choose Avatar Type</option>
+                                        <option value="male">male</option>
+                                        <option value="female">female</option>
+                                        <option value="human">human</option>
+                                        <option value="avataaars" selected>avatars</option>
+                                    </select>
+                                    <label>Choose Avatar Type</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
+            <!-- Card Regular -->
             <!-- Card -->
-            <div class="card testimonial-card animated fadeIn">
+<!--            <div class="card testimonial-card animated fadeIn">-->
 
-                <!-- Background color -->
-                <div class="card-up deep-blue-gradient"></div>
+<!--                &lt;!&ndash; Background color &ndash;&gt;-->
+<!--                <div class="card-up deep-blue-gradient"></div>-->
 
-                <!-- Avatar -->
-                <div class="avatar mx-auto white">
-                    <img id="avatar" name="avatar" for="reg-form"
-                        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"
-                        class="rounded-circle img-fluid z-depth-1" alt="woman avatar">
-                </div>
+<!--                &lt;!&ndash; Avatar &ndash;&gt;-->
+<!--                <div class="avatar mx-auto white">-->
+<!--                    <img id="avatar" name="avatar" for="reg-form"-->
+<!--                        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"-->
+<!--                        class="rounded-circle img-fluid z-depth-1" alt="woman avatar">-->
+<!--                </div>-->
 
-                <!-- Content -->
-                <div class="card-body">
-                    <!-- Name -->
-                    <h4 class="card-title" id="previewNickname">
-                        BARD
-                    </h4>
-                    <hr>
-                    <!-- Quotation -->
-                    <div class="text-center" id="previewSchool"><i class="fas fa-university"></i><a
-                            id="schoolName">&nbspSchool</a></div>
-                </div>
+<!--                &lt;!&ndash; Content &ndash;&gt;-->
+<!--                <div class="card-body">-->
+<!--                    &lt;!&ndash; Name &ndash;&gt;-->
+<!--                    <h4 class="card-title" id="previewNickname">-->
+<!--                        BARD-->
+<!--                    </h4>-->
+<!--                    <hr>-->
+<!--                    &lt;!&ndash; Quotation &ndash;&gt;-->
+<!--                    <div class="text-center" id="previewSchool"><i class="fas fa-university"></i><a-->
+<!--                            id="schoolName">&nbspSchool</a></div>-->
+<!--                </div>-->
 
-            </div>
+<!--            </div>-->
             <!-- Card -->
-            <button id="randomButton" class="btn btn-rounded mt-5 mb-3">Randomize</button>
+            <button id="randomButton" class="btn btn-rounded mb-3">Randomize</button>
             <hr>
             <small class="text-muted">Randomize will assign a random nickname and avatar</small>
         </div>
@@ -119,18 +153,34 @@
     $(document).ready(function () {
         $('#selectSchool').materialSelect();
         $('#imageURL').attr('value', $('#avatar').attr('src'));
-        getRandom();
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('#avatarType').materialSelect();
+            $('.select-wrapper.md-form.md-outline input.select-dropdown').bind('focus blur', function () {
+                $(this).closest('.select-outline').find('label').toggleClass('active');
+                $(this).closest('.select-outline').find('.caret').toggleClass('active');
+            });
+        });
     });
+
 
     let formValid = true;
 
     // randomize avatar
-    function getRandomAvatar() {
-        $.getJSON("/api/randomAvatar", (data) => {
-            $('#avatar').attr('src', data.url);
-            $('#imageURL').attr('value', data.url);
-        });
+    function getRandomAvatar(type, username) {
+            const rand = Math.floor(Math.random() * Math.floor(1000));
+            const seed = 'rmcio' + username + rand.toString();
+            if(!username){
+                alert('Please type user name to get avatar')
+            }else {
+                $('#avatar').attr('src', `https://avatars.dicebear.com/v2/${type}/${seed}.svg`);
+                $('#imageURL').attr('value', `https://avatars.dicebear.com/v2/${type}/${seed}.svg`);
+            }
     }
+
+    $('#avatarType').change(function (evt) {
+        getRandomAvatar(evt.target.value, $('input#username').val());
+    });
 
     // toast settings
     toastr.options = {
@@ -153,6 +203,8 @@
 
     // Validate username
     $('input#username').change(function(e){
+        console.log($('#avatarType').val());
+        getRandomAvatar($('#avatarType').val(), e.target.value);
         $.getJSON(`/api/checkUser?username=${e.target.value}`,(result)=>{
             if(result.exist === '1'){
                 $('#usernameError').removeClass('d-none');
@@ -174,7 +226,7 @@
 
     // randomize
     $('#randomButton').click(function (e) {
-        getRandomAvatar();
+        getRandomAvatar($('#avatarType').val(), $('input#username').val());
     });
 
 

@@ -2,20 +2,88 @@
 <script src="/plugins/rating/jquery.star-rating-svg.js"></script>
 <link rel="stylesheet" type="text/css" href="/plugins/rating/css/star-rating-svg.css">
 
-<div class="container-fluid d-md-flex align-items-stretch mt-5">
-    <nav id="sidebar" class="z-depth-1">
+
+<div class="container d-md-flex align-items-stretch mt-5">
+    <!-- Page Content  -->
+    <div class="container-fluid">
+        <div id="content" class="pt-5">
+            <div class="row d-flex">
+                <div class="col col-md-12">
+                    <!-- Search form -->
+                    <form id="searchForm" class="form-inline d-flex md-form">
+                        <input class="form-control form-control-lg ml-3 w-75" type="text" placeholder="Name/Code/Professor"
+                               aria-label="Search">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div id="spinner" class="spinner-grow text-primary m-1 d-none" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div id="result">
+                <!--Big blue-->
+            <div class="row d-flex">
+                <div class="col col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row d-flex">
+                                <div class="col-md-10">
+                                    <div class="card-title">
+                                        <h5>Apply Internet Technology</h5>
+                                    </div>
+                                    <div class="card-subtitle pt-2 pb-2 font-small text-muted">
+                                        <a>CSCI-UA-480</a>
+                                        <a class="ml-2 mr-2">|</a>
+                                        <a>Joe Versoza</a>
+                                    </div>
+                                    <div class="card-text">
+                                        <ul class="list-unstyled list-group list-group-horizontal">
+                                            <li class="mr-3 dark-grey-text">Quality &nbsp;<i class="rating-1"></i>&nbsp;</li>
+                                            <li class="mr-3 dark-grey-text">Difficulty &nbsp;<i class="rating-2"></i>&nbsp;</li>
+                                            <li class="mr-3 dark-grey-text">Avg. Grade: <span class="badge badge-pill badge-danger">A</span></li></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 d-inline-block align-middle">
+                                    <div class="card-text text-right">
+                                        <p>
+                                            <a class="ml-3 text-danger"><i class="fas fa-fire"></i></a>
+                                            <small class="text-muted">2</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <nav class="ml-3" id="sidebar">
         <div class="p-4 pt-5 mt-2">
             <div class="form-group">
-                <label class="h5 form-text text-dark" for="classCode">Search by</label>
                 <!-- Material input -->
-                <!-- Material outline input -->
-                <div class="md-form md-outline">
-                    <input type="text" id="class" class="form-control">
-                    <label for="form1">Class</label>
+                <div class="row">
+                    <div class="col-md-12 select-outline">
+                        <select class="mdb-select md-form md-outline colorful-select dropdown-primary">
+                            <option value="relevance" >Relevance</option>
+                            <option value="quality">Quality</option>
+                            <option value="difficulty">Difficulty</option>
+                            <option value="grade">Grade</option>
+                        </select>
+                        <label>Sort By</label>
+                    </div>
                 </div>
-                <div class="md-form md-outline">
-                    <input type="text" id="professor" class="form-control">
-                    <label for="form1">Professor</label>
+                <div class="row">
+                    <div class="col-md-12 select-outline">
+                        <select class="mdb-select md-form md-outline colorful-select dropdown-primary">
+                            <option value="New York University" >NYU</option>
+                        </select>
+                        <label>School</label>
+                    </div>
                 </div>
             </div>
             <div class="mb-5">
@@ -31,126 +99,133 @@
                     <a href="#" class="tag-cloud-link">drinks</a>
                 </div>
             </div>
-<!--            <div class="mb-5">-->
-<!--                <h5 class="text-dark">Newsletter</h5>-->
-<!--                <form action="#" class="subscribe-form">-->
-<!--                    <div class="form-group d-flex">-->
-<!--                        <div class="icon"><span class="icon-paper-plane"></span></div>-->
-<!--                        <input type="text" class="form-control" placeholder="Enter Email Address">-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
         </div>
     </nav>
-    <!-- Page Content  -->
-    <div class="container-fluid">
-        <div id="content" class="p-5 p-md-5 pt-5">
-            <div class="row d-flex">
-                <div class="col col-md-auto">
-                    <!-- Card -->
-                    <!-- Card -->
-                    <div class="card card-weather">
-
-                        <!-- Card content -->
-                        <div class="card-body pb-3">
-
-                            <!-- Class Name -->
-                            <h5 class="card-title font-weight-bold">Applied Internet Technology</h5>
-                            <!-- Class Code -->
-                            <p class="card-text">CSCA-UA-480&nbsp;|&nbsp;Joe Versoza</p>
-                            <div class="d-flex justify-content-between">
-                                <p class="display-3 degree text-black">4.9</p>
-                                <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
-                            </div>
-                            <p class="card-text"><span class="badge badge-pill badge-default">Quality</span>&nbsp;<i class="rating-1"></i></p>
-                            <p class="card-text"><span class="badge badge-pill badge-danger">Difficulty</span>&nbsp;<a class="rating-2"></a></p>
-                            <p class="card-text">Overall Grade: </p>
-                            <div class="progress md-progress z-depth-1" style="height: 10px">
-                                <div class="progress-bar" role="progressbar" style="width: 75%; height: 10px" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
-                                <li class="pl-4">F</li>
-                                <li>D</li>
-                                <li>C</li>
-                                <li>B</li>
-                                <li class="pr-4">A</li>
-                            </ul>
-
-                                <hr class="">
-<!--                                <a class="btn btn-flat p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">ss</a>-->
-                                    <div class="d-flex justify-content-end">
-                                    <small class="text-muted text-right">See Reviews</small>
-                                    </div>
-
-                        </div>
-
-                    </div>
-                    </div>
-
-                    <div class="col col-md-auto">
-                        <!-- Card -->
-                        <!-- Card -->
-                        <div class="card card-weather">
-
-                            <!-- Card content -->
-                            <div class="card-body pb-3">
-
-                                <!-- Class Name -->
-                                <h5 class="card-title font-weight-bold">Applied Internet Technology</h5>
-                                <!-- Class Code -->
-                                <p class="card-text">CSCA-UA-480&nbsp;|&nbsp;Yulong He</p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="display-3 degree text-black">5.0</p>
-                                    <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
-                                </div>
-                                <p class="card-text"><span class="badge badge-pill badge-default">Quality</span>&nbsp;<i class="rating-1"></i></p>
-                                <p class="card-text"><span class="badge badge-pill badge-danger">Difficulty</span>&nbsp;<a class="rating-2"></a></p>
-                                <p class="card-text">Overall Grade: </p>
-                                <div class="progress md-progress z-depth-1 bg-warning" style="height: 10px">
-                                    <div class="progress-bar" role="progressbar" style="width: 100%; height: 10px" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
-                                    <li class="pl-4">F</li>
-                                    <li>D</li>
-                                    <li>C</li>
-                                    <li>B</li>
-                                    <li class="pr-4">A</li>
-                                </ul>
-
-                                <hr class="">
-                                <!--                                <a class="btn btn-flat p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">ss</a>-->
-                                <div class="d-flex justify-content-end">
-                                    <small class="text-muted text-right">See Reviews</small>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-            </div>
-        </div>
-    </div>
 
 </div>
 
 <script>
 
+    // Material Select Initialization
+    $(document).ready(function() {
+        $('.mdb-select').materialSelect();
+        $('.select-wrapper.md-form.md-outline input.select-dropdown').bind('focus blur', function () {
+            $(this).closest('.select-outline').find('label').toggleClass('active');
+            $(this).closest('.select-outline').find('.caret').toggleClass('active');
+        });
+    });
+
     // nav
     $("#classBtn").addClass('active');
-
     $(".rating-1").starRating({
         useFullStars: true,
         starShape: 'rounded',
         starSize: 20
     });
-    $('.rating-1').starRating('setRating', 2.5)
+    $('.rating-1').starRating('setRating', 2.5);
     $('.rating-1').starRating('setReadOnly', true);
     $(".rating-2").starRating({
         useFullStars: true,
         starShape: 'rounded',
         starSize: 20
     });
-    $('.rating-2').starRating('setRating', 5)
+    $('.rating-2').starRating('setRating', 5);
     $('.rating-2').starRating('setReadOnly', true);
+
+    // API FETCH
+
+    function addResult(currentClass,num){
+        const result = `<div class="row d-flex">
+                <div class="col col-md-12 mt-2">
+                    <div class="card animated fadeInUp hoverable">
+                        <div class="card-body">
+                            <div class="row d-flex">
+                                <div class="col-md-10">
+                                    <div class="card-title">
+                                        <h5>${currentClass.className}</h5>
+                                    </div>
+                                    <div class="card-subtitle pt-2 pb-2 font-small text-muted">
+                                        <a>${currentClass.classCode}</a>
+                                        <a class="ml-2 mr-2">|</a>
+                                        <a>${currentClass.professor}</a>
+                                    </div>
+                                    <div class="card-text">
+                                        <ul class="list-unstyled list-group list-group-horizontal">
+                                            <li class="mr-3 dark-grey-text">Quality &nbsp;<i class="rating-quality-${num}"></i>&nbsp;</li>
+                                            <li class="mr-3 dark-grey-text">Difficulty &nbsp;<i class="rating-difficulty-${num}"></i>&nbsp;</li>
+                                            <li class="mr-3 dark-grey-text">Avg. Grade: <span class="badge badge-pill badge-danger">${currentClass.overallGradeLetter}</span></li></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 d-inline-block align-middle">
+                                    <div class="card-text text-right">
+                                        <p>
+                                        <a class="ml-3 text-danger"><i class="fas fa-fire"></i></a>
+                                        <small class="text-muted">${currentClass.reviews.length}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/class/${currentClass._id}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>`;
+
+        // Calculate Half Rates
+        let classQualityRate, classDifficultyRate;
+        classQualityRate = currentClass.overallClassQualityRate;
+        classDifficultyRate = currentClass.overallClassDifficultyRate;
+        const QualityRateDec = classQualityRate - Math.floor(classQualityRate);
+        const DifficultyRateDec = classDifficultyRate - Math.floor(classDifficultyRate);
+        if(QualityRateDec >= 0.35 && QualityRateDec < 0.50){
+            classQualityRate = Math.floor(classQualityRate) + 0.50;
+        } else if(QualityRateDec >= 0.50 && QualityRateDec < 0.75){
+            classQualityRate = Math.floor(classQualityRate) + 0.50;
+        }else if(QualityRateDec >= 0.75){
+            classQualityRate = Math.ceil(classQualityRate);
+        }
+        if(DifficultyRateDec >= 0.35 && DifficultyRateDec < 0.50){
+            classDifficultyRate = Math.floor(classDifficultyRate) + 0.50;
+        } else if(DifficultyRateDec >= 0.50 && DifficultyRateDec < 0.75){
+            classDifficultyRate = Math.floor(classDifficultyRate) + 0.50;
+        }else if(DifficultyRateDec >= 0.75){
+            classDifficultyRate = Math.ceil(classDifficultyRate);
+        }
+
+        $("#result").append(result);
+
+        $(`.rating-quality-${num}`).starRating({
+            useFullStars: false,
+            starShape: 'rounded',
+            starSize: 20,
+            forceRoundUp:true
+        });
+        $(`.rating-difficulty-${num}`).starRating({
+            useFullStars: false,
+            starShape: 'rounded',
+            starSize: 20,
+            forceRoundUp:true
+        });
+        $(`.rating-quality-${num}`).starRating('setRating', classQualityRate);
+        $(`.rating-difficulty-${num}`).starRating('setRating', classDifficultyRate);
+        $(`.rating-quality-${num}`).starRating('setReadOnly', true);
+        $(`.rating-difficulty-${num}`).starRating('setReadOnly', true);
+
+    }
+
+    $("#searchForm").keyup(function (event) {
+
+        $("#result").empty();
+        $("#spinner").removeClass('d-none');
+        $.getJSON(`/api/searchClass/${event.target.value}`, function (data) {
+            for(let i=0; i<data.length;i++){
+                addResult(data[i],i);
+            }
+            setTimeout(function () {
+                $("#spinner").addClass('d-none');
+            },800);
+        });
+    });
+
+
 </script>
