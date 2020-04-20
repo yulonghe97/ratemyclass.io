@@ -4,17 +4,17 @@ mongoose.set('useFindAndModify', false);
 
 // class objects that records the information of each school-class
 const classSchema = new mongoose.Schema({
-    className: {type: String, required:true},
-    classCode: {type: String, required:true},
-    classSemester:{type: String, required:true},
+    className: {type: String, required:true, trim: true},
+    classCode: {type: String, required:true, trim: true},
+    classSemester:{type: [String], required:true},
     classSession:{type: [String], required:true},
     classSection:{type: String},
-    classUnits:{type:String},
+    classUnits:{type:String,trim: true},
     classUniversity: {type: String, required:true},
     classPrereq:{type: String},
     classWebsite:{type: String},
     classDescription:{type: String, required:true},
-    professor: {type: String, required:true},
+    professor: {type: String, required:true, trim: true},
     dateCreated: Date,
     overallClassQualityRate: {type: Number, min: 0.0, max: 5.0},
     overallClassDifficultyRate: {type: Number, min: 0.0, max: 5.0},
@@ -36,8 +36,9 @@ const reviewSchema = new mongoose.Schema({
     reviewGrade: String,
     qualityRating: {type: Number, min: 0.0, max: 5.0},
     difficultyRating: {type: Number, min: 0.0, max: 5.0},
-    tags: [String],
-    reviewContent:String
+    reviewContent:String,
+    hwLoad:{type:String},
+    exam:{type:String}
 },{_id:true});
 
 // User Information
@@ -79,13 +80,14 @@ classSchema.plugin(mongoose_fuzzy_searching, {
     fields: [{
         name: 'className',
         prefixOnly: true,
-        minSize: 2,
+        minSize: 3,
     }, {
         name: 'classCode',
         minSize: 2,
     }, {
         name: 'professor',
         prefixOnly: true,
+        minSize:3,
     }]
 });
 

@@ -1,24 +1,23 @@
 <script src="/plugins/rating/jquery.star-rating-svg.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/plugins/rating/css/star-rating-svg.css">
 <!--Main Layout-->
 <main>
     <div class="container">
-        <section class="section mt-5 pb-3 wow fadeIn">
+        <section class="section mt-3">
             <!--Grid row-->
             <div class="row">
                 <div class="col-md-auto">
                     <!-- Card -->
-                    <div class="card card-cascade wider reverse">
-                        <div class="d-flex justify-content-end mr-5 ">
-                            <!-- Card image -->
-                            <div class="view view-cascade overlay gradient-card-header d-flex justify-content-center"
-                                style="width: 10%;">
-                                <img class="card-img-top img-fluid"
-                                    src="https://images-na.ssl-images-amazon.com/images/I/617H1Z7lr8L._AC_SL1500_.jpg"
-                                    alt="Card image cap">
-                            </div>
-                        </div>
+                    <div class="card">
                         <div class="card-body card-body-cascade text-center">
+<!--                            <div class="d-flex justify-content-end p-3">-->
+<!--                                &lt;!&ndash; Card image &ndash;&gt;-->
+<!--                                <img class="card-img-top img-fluid" style="width: 100px"-->
+<!--                                     src="https://images-na.ssl-images-amazon.com/images/I/617H1Z7lr8L._AC_SL1500_.jpg"-->
+<!--                                     alt="Card image cap">-->
+<!--                            </div>-->
                             <h2 class="p-2"><a><strong>{{course.className}}</strong></a></h2>
                             <p>
                                 <a>{{course.classCode}}&nbsp;</a>
@@ -28,17 +27,19 @@
                                     <a class="p-2">Quality&nbsp;<i class="rating-overall-quality"></i>&nbsp;</a>
                                     <a class="p-2">Difficulty&nbsp;<i class="rating-overall-difficulty"></i>&nbsp;</a>
                                     <a class="p-2">Average Grade&nbsp;<span
-                                            class="badge badge-pill badge-danger">{{course.overallGradeLetter}}</span></a>
+                                            class="badge badge-pill badge-primary">{{course.overallGradeLetter}}</span></a>
                                 </p>
                             </p>
                         </div>
                     </div>
                     <div class="excerpt mt-5">
-                        <h4 class="pt-4">Course Info:</h4>
+                        <h4 class="pt-4">Course Info</h4>
                         <hr>
                         <p>
-                            <p> Semester: <span
-                                    class=" badge badge-pill badge-default">{{course.classSemester}}</span>&nbsp;
+                            <p> Semester:
+                                {{#each course.classSemester}}
+                                <span class=" badge badge-pill badge-default">{{course.classSemester}}</span>
+                                {{/each}}
                                 Session:
                                 {{#each course.classSession}}
                                 <span class=" badge badge-pill badge-secondary">{{this}}</span>&nbsp;
@@ -47,12 +48,12 @@
                                 Units: <span class=" badge badge-pill badge-primary">{{course.classUnits}}</span>&nbsp;
                             </p>
                         </p>
-                        <h4 class="pt-4">Course Intro:</h4>
+                        <h4 class="pt-4">Course Intro</h4>
                         <hr>
                         <p>
                             {{{course.classDescription}}}
                         </p>
-                        <h4 class="pt-4">Prerequisite:</h4>
+                        <h4 class="pt-4">Prerequisite</h4>
                         <hr>
                         <p>
                             {{course.classPrereq}}
@@ -65,6 +66,74 @@
                 </div>
             </div>
         </section>
+        <h4 class="pt-4">Analysis</h4>
+        <hr>
+        <section class="charts p-2">
+        <div class="row justify-content-start">
+            <div class="col-md-4">
+                <canvas class="ml-n3" id="myChart" width="300" height="200"></canvas>
+            </div>
+            <div class="col-md-4">
+                <canvas class="ml-n3" id="myChart2" width="300" height="200"></canvas>
+            </div>
+            <div class="col-md-4">
+                <canvas class="ml-n3" id="myChart3" width="300" height="200"></canvas>
+            </div>
+        </div>
+        </section>
+        <h4 class="pt-5">Related Class & Professor</h4>
+        <hr>
+        <section class="related-prof p-2">
+            <div class="row justify-content-start">
+                <div class="col-md-12">
+                    <div class="text-left">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Class</th>
+                                <th scope="col">Professor</th>
+                                <th scope="col">Quality</th>
+                                <th scope="col">Difficulty</th>
+                                <th scope="col">Grade</th>
+                                <th scope="col">HW Load</th>
+                                <th scope="col">Exam</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>CSCI-UA.0002</td>
+                                <td>Joe Spencer</td>
+                                <td>5.0</td>
+                                <td>3.0</td>
+                                <td>B+</td>
+                                <td>Impossible</td>
+                                <td>Hard</td>
+                            </tr>
+                            <tr>
+                                <td>CSCI-UA.0002</td>
+                                <td>Marc Jacob</td>
+                                <td>3.0</td>
+                                <td>1.2</td>
+                                <td>B</td>
+                                <td>Easy</td>
+                                <td>Fair</td>
+                            </tr>
+                            <tr>
+                                <td>CSCI-UA.0002</td>
+                                <td>Marc Jacob</td>
+                                <td>3.0</td>
+                                <td>1.2</td>
+                                <td>B</td>
+                                <td>Easy</td>
+                                <td>Easy</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <a class="text-muted font-small ml-auto float-right">See more comprison</a>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="mb-4 pt-5" >
             <div class="comments-list text-center text-md-left mb-5">
                 <div class="text-center mb-4">
@@ -72,7 +141,7 @@
                     <hr>
                 </div>
                 {{#each reviews as |review|}}
-                <div class="row mb-4 wow fadeIn" data-wow-delay="0.2s">
+                <div id="review1" class="row mb-4 p-3" data-wow-delay="0.2s">
                     <div class="col-sm-2 col-12 mb-md-0 mb-3">
                         <img src="{{userAvatarUrl}}" class="avatar rounded-circle z-depth-1-half">
                     </div>
@@ -83,31 +152,18 @@
                         <div class="mt-2">
                             <ul class="list-unstyled list-group list-group-horizontal">
                                 <li class="review-date mr-3 dark-grey-text font-small"><i
-                                        class="fas fa-clock"></i>&nbsp;{{review.reviewDate}}</li>
-                                <li class="mr-3 dark-grey-text font-small">
-                                    Semester <span class=" badge badge-pill badge-default">{{review.reviewSemester}}</span>
-                                </li>
+                                        class="fas fa-clock"></i>&nbsp;{{review.reviewDate}} {{review.reviewSemester}}</li>
                                 <li class="mr-3 dark-grey-text font-small">Grade <span
                                         class=" badge badge-pill badge-primary">{{review.reviewGrade}}</span></li>
                                 <li class="mr-3 dark-grey-text font-small">Quality &nbsp;<i class="rating-quality-{{@index}}"></i>&nbsp;</li>
                                 <li class="mr-3 dark-grey-text font-small">Difficulty &nbsp;<i class="rating-difficulty-{{@index}}"></i>&nbsp;</li>
+                                <li class="mr-3 dark-grey-text font-small">HW Load &nbsp;<span
+                                        class=" badge badge-pill badge-secondary">{{review.hwLoad}}</span></li></li>
+                                <li class="mr-3 dark-grey-text font-small">Exam &nbsp;<span
+                                        class=" badge badge-pill badge-info">{{review.exam}}</span></li></li>
                             </ul>
                         </div>
                         <p class="pt-4 pb-3">{{review.reviewContent}}</p>
-                        <!-- Tags -->
-                        <p >
-                            {{#each review.tags}}
-                                {{#if (isBlank this)}}
-                                <div class="chip">
-                                        {{this}}
-                                </div>
-                                {{/if}}
-                                {{#unless (isBlank this)}}
-                                    <div class="p-2">&nbsp;</div>
-                                {{/unless}}
-
-                            {{/each}}
-                        </p>
                     </div>
                 </div>
                 <hr>
@@ -211,11 +267,68 @@
                                     </div>
                                 </div>
                                 <p class="form-text">
-                                    <a class="h5">Grading</a>
                                     <hr>
                                 </p>
-                                <div class="form-row mb-2 p-1">
-                                    <div class="col-md-4">
+                                <div class="form-row mb-2 pt-2">
+                                    <div class="col-md-12">
+                                        <label class="col-sm-auto col-form-label">Homework Load</label>
+                                        <!-- HW Load -->
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Very Easy" id="hwLoad1" name="hwLoad">
+                                            <label class="form-check-label" for="hwLoad1">Very Easy</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Easy" id="hwLoad2" name="hwLoad">
+                                            <label class="form-check-label" for="hwLoad2">Easy</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Fair" id="hwLoad3" name="hwLoad">
+                                            <label class="form-check-label" for="hwLoad3">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Hard" id="hwLoad4" name="hwLoad">
+                                            <label class="form-check-label" for="hwLoad4">Hard</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Impossible" id="hwLoad5" name="hwLoad">
+                                            <label class="form-check-label" for="hwLoad5">Impossible</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-row mb-2 pt-2">
+                                    <div class="col-md-12">
+                                        <label class="col-sm-auto col-form-label" style="margin-right: 75px">Exam</label>
+                                        <!-- HW Load -->
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Very Easy" id="Exam1" name="exam">
+                                            <label class="form-check-label" for="Exam1">Very Easy</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Easy" id="Exam2" name="exam">
+                                            <label class="form-check-label" for="Exam2">Easy</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Fair" id="Exam3" name="exam">
+                                            <label class="form-check-label" for="Exam3">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Hard" id="Exam4" name="exam">
+                                            <label class="form-check-label" for="Exam4">Hard</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" value="Impossible" id="Exam5" name="exam">
+                                            <label class="form-check-label" for="Exam5">Impossible</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-row mb-2">
+                                    <div class="col-md-4 ml-2">
                                         <select name="semester" class="mdb-select md-form"
                                             style="font-family: Istok Web;">
                                             <option value="" disabled selected>Semester</option>
@@ -240,22 +353,9 @@
                                             <option value="D">D</option>
                                             <option value="D-">D-</option>
                                             <option value="F">F</option>
-                                            <option value="P/F">P/F</option>
                                         </select>
                                     </div>
                                 </div>
-                                <!-- TAGS -->
-                                <p class="form-text">
-                                    <a class="h5">Tags</a>
-                                    <input id="tagsInput" name="tags" class="d-none">
-                                    <hr>
-                                </p>
-                                <div class="row d-flex justify-content-start p-2">
-                                    <div class="col-md-12">
-                                        <div id="tags" class="chips chips-placeholder chips-autocomplete"></div>
-                                    </div>
-                                </div>
-                                <!-- end TAGS -->
                                 <p class="form-text mb-3">
                                     <span class="h5">Review</span>
                                 </p>
@@ -326,25 +426,16 @@
 
 <script>
 
-    // for test purpose
-    let states = [
-        'excellent',
-        'hard homework',
-        'clear',
-        'engaging'
-    ];
-
     $(document).ready(() => {
-        new WOW().init();
+
         $('.mdb-select').materialSelect();
+        ScrollReveal().reveal('#review1');
 
         // Start Initialization
-
         // Set Rating for Read
-
         console.log('good!');
         $.getJSON('/api/getReviews/' + $("#classID").text(), function (data) {
-            for(let i=0; i<data.reviews.length; i++){
+            for(let i=0; i<data[0].reviews.length; i++){
                 $(`.rating-quality-${i}`).starRating({
                     useFullStars: false,
                     starShape: 'rounded',
@@ -355,8 +446,8 @@
                     starShape: 'rounded',
                     starSize: 18
                 });
-                $(`.rating-quality-${i}`).starRating('setRating', data.reviews[i].qualityRating);
-                $(`.rating-difficulty-${i}`).starRating('setRating', data.reviews[i].difficultyRating);
+                $(`.rating-quality-${i}`).starRating('setRating', data[0].reviews[i].qualityRating);
+                $(`.rating-difficulty-${i}`).starRating('setRating', data[0].reviews[i].difficultyRating);
                 $(`.rating-quality-${i}`).starRating('setReadOnly', true);
                 $(`.rating-difficulty-${i}`).starRating('setReadOnly', true);
             }
@@ -376,8 +467,8 @@
             // Round up for stars
 
             let classQualityRate, classDifficultyRate;
-            classQualityRate = data.overallClassQualityRate;
-            classDifficultyRate = data.overallClassDifficultyRate;
+            classQualityRate = data[0].overallClassQualityRate;
+            classDifficultyRate = data[0].overallClassDifficultyRate;
             const QualityRateDec = classQualityRate - Math.floor(classQualityRate);
             const DifficultyRateDec = classDifficultyRate - Math.floor(classDifficultyRate);
             if(QualityRateDec >= 0.35 && QualityRateDec < 0.50){
@@ -400,6 +491,143 @@
             $(`.rating-overall-difficulty`).starRating('setRating', classDifficultyRate);
             $(`.rating-overall-quality`).starRating('setReadOnly', true);
             $(`.rating-overall-difficulty`).starRating('setReadOnly', true);
+
+            // bar chart
+            let ctx = document.getElementById('myChart').getContext('2d');
+            let ctx2 = document.getElementById('myChart2').getContext('2d');
+            let ctx3 = document.getElementById('myChart3').getContext('2d');
+            Chart.defaults.global.legend.display = false;
+            Chart.pluginService.register({
+                afterDraw: function (chart) {
+                    if (chart.data.datasets[0].data.length === 0) {
+                        // No data is present
+                        var ctx = chart.chart.ctx;
+                        var width = chart.chart.width;
+                        var height = chart.chart.height;
+                        chart.clear();
+
+                        ctx.save();
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.font = "20px normal 'Helvetica Nueue'";
+                        ctx.fillText('No data to display', width / 2, height / 2);
+                        ctx.restore();
+                    }
+
+                }
+            });
+            const chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'horizontalBar',
+
+                // The data for our dataset
+                data: {
+                    labels: ['A', 'B', 'C', 'D', 'F'],
+                    datasets: [{
+                        data: data[1].grade,
+                        backgroundColor:[
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Grade Distribution'
+                    }
+                }
+            });
+
+
+            // Chart 2:
+
+            const chart2 = new Chart(ctx2, {
+                // The type of chart we want to create
+                type: 'pie',
+
+                // The data for our dataset
+                data: {
+                    labels: ['Very Easy','Easy','Fair','Hard','Impossible'],
+                    datasets: [{
+                        data: data[1].hwLoad,
+                        backgroundColor:[
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    title: {
+                        display: true,
+                        text: 'HW Load'
+                    }
+
+                }
+            });
+
+            const chart3 = new Chart(ctx3, {
+                // The type of chart we want to create
+                type: 'pie',
+
+                // The data for our dataset
+                data: {
+                    labels: ['Very Easy','Easy','Fair','Hard','Impossible'],
+                    datasets: [{
+                        data: data[1].exam,
+                        backgroundColor:[
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Exam Hardness'
+                    }
+
+                }
+            });
 
         });
 
@@ -426,34 +654,16 @@
             }
         });
 
-        const tags = [];
-
-        // Tags 
-        $("#tags").materialChip({
-            placeholder: 'add more tags',
-            secondaryPlaceholder: 'Type and Hit Enter to +Tag',
-            dataChip: states
-        });
-
-        $('.chips').on('chip.add', function (e, chip) {
-            tags.push(chip.tag);
-        });
-
-        $('.chips').on('chip.delete', function (e, chip) {
-            tags.splice(tags.indexOf(chip.tag), 1);
-        });
 
         // Submit
         $('#submitBtn').click(function (e) {
-            if(tags.length > 0){
-                $('#tagsInput').val(`${tags}`);
-            }
             $('#currentClass').val($('#classID').text());
             $('#addReviewModal').modal('hide');
             $('#reviewAddedModal').modal('show');
         });
 
     });
+
 
 
 

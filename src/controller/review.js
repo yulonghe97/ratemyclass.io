@@ -10,7 +10,6 @@ const mongoose = require("mongoose"),
 
 exports.addReviewPost = (req, res) => {
     const review = req.body;
-    const tags = review.tags.split(",");
     saveReview(
         req.user.userNickname,
         req.user._id,
@@ -20,8 +19,9 @@ exports.addReviewPost = (req, res) => {
         review.grade,
         parseFloat(review.classQuality),
         parseFloat(review.classDifficulty),
-        tags,
         review.reviews,
+        review.hwLoad,
+        review.exam,
         req,
         res
     )
@@ -47,7 +47,7 @@ exports.getReview = async (req, res, classID)=>{
 
 };
 
-async function saveReview(reviewUser, reviewUserId, reviewDate, reviewClass, reviewSemester, reviewGrade, qualityRating, difficultyRating, tags, reviewContent) {
+async function saveReview(reviewUser, reviewUserId, reviewDate, reviewClass, reviewSemester, reviewGrade, qualityRating, difficultyRating, reviewContent, hwLoad, exam) {
     try {
         const newReview = new Review({
             reviewUser: reviewUser,
@@ -58,8 +58,9 @@ async function saveReview(reviewUser, reviewUserId, reviewDate, reviewClass, rev
             reviewGrade: reviewGrade,
             qualityRating: qualityRating,
             difficultyRating: difficultyRating,
-            tags: tags,
-            reviewContent: reviewContent
+            reviewContent: reviewContent,
+            hwLoad: hwLoad,
+            exam: exam
         });
         // Save Review to database
         const savedReview = await newReview.save();

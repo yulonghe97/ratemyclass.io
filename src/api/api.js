@@ -30,14 +30,15 @@ exports.checkLogin = (req, res) => {
 
 // Get Review from classID
 exports.getReview = async (req, res)=>{
-    console.log('API GET REVIEW REQUEST: '+ req.params.classId);
     try{
         const review = await db.Class
             .findById(req.params.classId)
             .populate('reviews')
             .lean()
             .exec();
-        await res.json(review);
+        console.log(review);
+        const chartData = await Class.calculateDistribution(review.reviews);
+        await res.json([review, chartData]);
     }catch (e) {
         return utils.errHandle(e, req, res);
     }

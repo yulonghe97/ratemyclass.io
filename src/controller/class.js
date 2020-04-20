@@ -74,18 +74,26 @@ exports.postAddClass = (req, res) => {
   console.log(classData);
   // check and cast the classSession type.
   let classSession;
+  let classSemester;
   if (typeof classData.courseSession === "string") {
     classSession = [classData.courseSession];
   } else {
     // then the classData must be array type, with multiple inputs
     classSession = classData.courseSession;
   }
+  if (typeof classData.courseSemester === "string") {
+    classSemester = [classData.courseSemester];
+  } else {
+    // then the classData must be array type, with multiple inputs
+    classSemester = classData.courseSemester;
+  }
+
 
   try {
     addClass(
       classData.courseName.trim(),
       classData.courseCode.trim(),
-      classData.courseSemester.trim(),
+      classSemester,
       classSession,
       classData.courseSection.trim(),
       classData.courseUnit.trim(),
@@ -198,6 +206,77 @@ exports.searchClass = function (query, cb) {
       cb(classes);
     });
 };
+
+// Class Chart Data
+exports.calculateDistribution = function (reviews) {
+  // Calculate Grade Distribution
+  let gradeDistribution = [0,0,0,0,0];
+  let hwLoadDistribution = [0,0,0,0,0];
+  let examDistribution = [0,0,0,0,0];
+  
+  reviews.forEach(ele =>{
+    // calculate Grade Distribution
+    switch (ele.reviewGrade){
+      case 'A+':
+        gradeDistribution[0] += 1;
+        break;
+      case 'A-':
+        gradeDistribution[0] += 1;
+        break;
+      case 'A':
+        gradeDistribution[0] += 1;
+        break;
+      case 'B+':
+        gradeDistribution[1] += 1;
+        break;
+      case 'B':
+        gradeDistribution[1] += 1;
+        break;
+      case 'B-':
+        gradeDistribution[1] += 1;
+        break;
+      case 'C+':
+        gradeDistribution[2] += 1;
+        break;
+      case 'C':
+        gradeDistribution[2] += 1;
+        break;
+      case 'C-':
+        gradeDistribution[2] += 1;
+        break;
+      case 'D':
+        gradeDistribution[3] += 1;
+        break;
+      case 'D-':
+        gradeDistribution[3] += 1;
+        break;
+      case 'F':
+        gradeDistribution[4] += 1;
+        break;
+      default:
+        break;
+    }
+    // Calculate HW Load Distribution
+    if(ele.hwLoad === 'Very Easy') hwLoadDistribution[0] += 1;
+    if(ele.hwLoad === 'Easy') hwLoadDistribution[1] +=1;
+    if(ele.hwLoad === 'Fair') hwLoadDistribution[2] +=1;
+    if(ele.hwLoad === 'Hard') hwLoadDistribution[3] +=1;
+    if(ele.hwLoad === 'Impossible') hwLoadDistribution[4] +=1;
+
+    // Calculate Exam Load Distribution
+    if(ele.exam === 'Very Easy') examDistribution[0] += 1;
+    if(ele.exam === 'Easy') examDistribution[1] +=1;
+    if(ele.exam === 'Fair') examDistribution[2] +=1;
+    if(ele.exam === 'Hard') examDistribution[3] +=1;
+    if(ele.exam === 'Impossible') examDistribution[4] +=1;
+  });
+  if(JSON.stringify(gradeDistribution) === JSON.stringify([0,0,0,0,0])) gradeDistribution = [];
+  if(JSON.stringify(hwLoadDistribution) === JSON.stringify([0,0,0,0,0])) hwLoadDistribution = [];
+  if(JSON.stringify(examDistribution) === JSON.stringify([0,0,0,0,0])) examDistribution = [];
+
+  return {grade: gradeDistribution, hwLoad: hwLoadDistribution, exam: examDistribution};
+};
+
 
 
 // Error handling helper function
