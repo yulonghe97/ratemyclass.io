@@ -43,10 +43,10 @@ router.get('/api/checkUser', api.checkUser);
 router.get('/api/checkLogin', api.checkLogin);
 // router.get('/api/:seed', api.getRandomAvatar);
 router.get('/api/getReviews/:classId', api.getReview);
-      // Class Search
+// Class Search
 router.get('/api/searchClass/:query', api.searchClass);
-
 router.get('/api/saveU/:name/:abbr', api.saveUniversity);
+router.get('/api/class/:classId', api.getClassInfo);
 
 // Error Page
 router.get('/error', (req, res)=>{res.render('error', {Error: req.flash('error')})});

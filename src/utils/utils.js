@@ -53,9 +53,9 @@ function reCalculateReviewAndGrade(reviewNum,newQualityRate, newDifficultyRate, 
     }
 
     if(newOverallGrade !== 0){
-        return {"QualityRate": roundNumber(newOverallQualityRate,4), "DifficultyRate": roundNumber(newOverallDifficultyRate,4), "newAvgGrade": newOverallGrade}
+        return {"QualityRate": roundNumber(newOverallQualityRate,3), "DifficultyRate": roundNumber(newOverallDifficultyRate,4), "newAvgGrade": newOverallGrade}
     }else{
-        return {"QualityRate": roundNumber(newOverallQualityRate,4), "DifficultyRate": roundNumber(newOverallDifficultyRate,4), "newAvgGrade": oldOverallGrade}
+        return {"QualityRate": roundNumber(newOverallQualityRate,3), "DifficultyRate": roundNumber(newOverallDifficultyRate,4), "newAvgGrade": oldOverallGrade}
     }
 }
 

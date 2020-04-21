@@ -36,7 +36,6 @@ exports.getReview = async (req, res)=>{
             .populate('reviews')
             .lean()
             .exec();
-        console.log(review);
         const chartData = await Class.calculateDistribution(review.reviews);
         await res.json([review, chartData]);
     }catch (e) {
@@ -54,6 +53,11 @@ exports.saveUniversity = (req, res)=>{
 exports.getRandomAvatar = (req, res) =>{
     const avatar = Avatar.newAvatar(req.params.seed);
     res.sendFile(avatar);
+};
+
+exports.getClassInfo = async (req, res)=>{
+    const classInfo = await Class.getClassInfo(req.params.classId);
+    await res.json(classInfo);
 };
 
 exports.searchClass = (req, res)=>{

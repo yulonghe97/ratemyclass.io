@@ -23,7 +23,8 @@ const classSchema = new mongoose.Schema({
     popularity: Number,
     reviews: [{type: mongoose.Schema.Types.ObjectId, ref:'Review'}],
     // default value for isApproved is set to true
-    isApproved: {type: Boolean, default: true}	
+    isApproved: {type: Boolean, default: true},
+    relatedClass: [{type: mongoose.Schema.Types.ObjectId, ref:'Class'}]
 },{_id:true});
 
 // Review class that contains the information of each review

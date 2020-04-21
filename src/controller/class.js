@@ -25,6 +25,9 @@ exports.getViewClass = (req, res) => {
       const classReview = await review.getReview(req, res, req.params.classId);
       // We want to get user info as well, merge into the review
       const mergedReviews = await review.getReviewUserInfo(classReview.reviews);
+      // find related Classes
+      const relatedClassInfo = await getRelatedClassInfo(course.relatedClass);
+      console.log(relatedClassInfo);
       if (req.user) {
         // User Signed In
         res.render("Class/classPage", {
@@ -33,14 +36,16 @@ exports.getViewClass = (req, res) => {
           avatar: req.user.userAvatarUrl,
           course: course,
           reviews: mergedReviews,
-          reviewNum: mergedReviews.length
+          reviewNum: mergedReviews.length,
+          relatedClass: relatedClassInfo
         });
       } else {
         res.render("Class/classPage", {
           signedOut: true,
           course: course,
           reviews: mergedReviews,
-          reviewNum: mergedReviews.length
+          reviewNum: mergedReviews.length,
+          relatedClass: relatedClassInfo
         });
       }      
     });
@@ -69,7 +74,7 @@ exports.getAddClass = (req, res) => {
   }
 };
 
-exports.postAddClass = (req, res) => {
+exports.postAddClass = async (req, res) => {
   const classData = req.body;
   console.log(classData);
   // check and cast the classSession type.
@@ -87,8 +92,8 @@ exports.postAddClass = (req, res) => {
     // then the classData must be array type, with multiple inputs
     classSemester = classData.courseSemester;
   }
-
-
+  // find Related Class
+  const relatedClass = await findRelatedClass(classData.courseCode);
   try {
     addClass(
       classData.courseName.trim(),
@@ -110,11 +115,15 @@ exports.postAddClass = (req, res) => {
       0,
       [],
       true,
+      relatedClass,
       // Callback after Class Added.
       (currentClass) => {
-        setTimeout(() => {
+        // After Adding Class, update the related class of this class
+        upDatedRelatedClass(currentClass.relatedClass, currentClass._id).then(r => {
+          setTimeout(() => {
             res.redirect(`/addSuccess/${currentClass._id}`)
-        }, 2000);
+          }, 2000);
+        });
       }
     );
   } catch (e) {
@@ -143,6 +152,7 @@ function addClass(
   popularity,
   reviews,
   isApproved,
+  relatedClass,
   cb
 ) {
   const newClass = new Class({
@@ -165,13 +175,13 @@ function addClass(
     popularity: popularity,
     reviews: reviews,
     isApproved: isApproved,
+    relatedClass: relatedClass
   });
-
   newClass.save((err, currentClass) => {
     if(err){
       return errHandle(err)
     }else{
-      console.log(`Class ID ${currentClass._id} Saved.`);
+      console.log(`[ADDED] Class ID ${currentClass._id} Saved.`);
     }
     // Update the university
     university.University.findOneAndUpdate(
@@ -181,13 +191,70 @@ function addClass(
         if(err){
           return errHandle(err)
         }else{
-          console.log(`Class Added to the ${res.universityName}`);
+          console.log(`[ADDED] Class Added to the ${res.universityName}`);
         }
       }
     );
     cb(currentClass);
   });
 }
+
+// This function helps to find the related class through classCode
+async function findRelatedClass(classCode){
+  // stemming
+  try{
+    const currentCode = classCode.trim();
+    const relatedClass = await Class.find({classCode: {$regex: currentCode, $options: "i"}});
+    return relatedClass;
+  }catch (e) {
+    return errHandle(e);
+  }
+};
+
+// Update the related classes
+async function upDatedRelatedClass(classIdArr, currentClassId) {
+  try{
+    // updated related classes
+    for(let i=0; i<classIdArr.length; i++){
+      const relatedClass = await Class.findOneAndUpdate(
+          {_id : classIdArr[i]._id},
+          {$push: {relatedClass : currentClassId}},
+      );
+      console.log('[UPDATED] '+ 'Class ' + relatedClass._id + ' ' + relatedClass.className + ' ');
+    }
+  }catch(e){
+      return errHandle(e);
+  }
+}
+
+
+// get related class info in array of class id (only get certain fields)
+async function getRelatedClassInfo(classIdArr) {
+  const result = [];
+  try {
+    for (let i = 0; i < classIdArr.length; i++) {
+      const relatedClass = await Class.findById(classIdArr[i]).select('className classCode professor overallClassQualityRate overallClassDifficultyRate overallGradeLetter').lean();
+      if (relatedClass !== null) {
+        result.push(relatedClass);
+      }
+    }
+    return result;
+  } catch (e) {
+    return errHandle(e);
+  }
+}
+
+
+
+// function to get classInfo By Id (array)
+exports.getClassInfo = async function(classId){
+    try{
+      const classInfo = Class.findById(classId);
+      return classInfo;
+    }catch (e) {
+      return errHandle(e);
+    }
+};
 
 
 exports.getAddSuccess = (req, res)=>{

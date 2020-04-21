@@ -1,10 +1,11 @@
 <script src="/plugins/rating/jquery.star-rating-svg.js"></script>
-<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="/js/chartjs-plugin-deferred.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/plugins/rating/css/star-rating-svg.css">
 <!--Main Layout-->
 <main>
-    <div class="container">
+    <div class="container" id="main">
         <section class="section mt-3">
             <!--Grid row-->
             <div class="row">
@@ -71,16 +72,17 @@
         <section class="charts p-2">
         <div class="row justify-content-start">
             <div class="col-md-4">
-                <canvas class="ml-n3" id="myChart" width="300" height="200"></canvas>
+                <canvas class="ml-n3" id="myChart" width="300" height="250"></canvas>
             </div>
             <div class="col-md-4">
-                <canvas class="ml-n3" id="myChart2" width="300" height="200"></canvas>
+                <canvas class="ml-n3" id="myChart2" width="300" height="250"></canvas>
             </div>
             <div class="col-md-4">
-                <canvas class="ml-n3" id="myChart3" width="300" height="200"></canvas>
+                <canvas class="ml-n3" id="myChart3" width="300" height="250"></canvas>
             </div>
         </div>
         </section>
+        {{#if relatedClass}}
         <h4 class="pt-5">Related Class & Professor</h4>
         <hr>
         <section class="related-prof p-2">
@@ -95,53 +97,49 @@
                                 <th scope="col">Quality</th>
                                 <th scope="col">Difficulty</th>
                                 <th scope="col">Grade</th>
-                                <th scope="col">HW Load</th>
-                                <th scope="col">Exam</th>
+                                <th scope="col">&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
+                            {{#each relatedClass as |Class| }}
                             <tr>
-                                <td>CSCI-UA.0002</td>
-                                <td>Joe Spencer</td>
-                                <td>5.0</td>
-                                <td>3.0</td>
-                                <td>B+</td>
-                                <td>Impossible</td>
-                                <td>Hard</td>
+                                <td>{{Class.classCode}}</td>
+                                <td>{{Class.professor}}</td>
+                                <td>{{Class.overallClassQualityRate}}</td>
+                                <td>{{Class.overallClassDifficultyRate}}</td>
+                                <td>{{Class.overallGradeLetter}}</td>
+                                <td><a class="dark-grey-text" href={{Class._id}}>view</a></td>
                             </tr>
-                            <tr>
-                                <td>CSCI-UA.0002</td>
-                                <td>Marc Jacob</td>
-                                <td>3.0</td>
-                                <td>1.2</td>
-                                <td>B</td>
-                                <td>Easy</td>
-                                <td>Fair</td>
-                            </tr>
-                            <tr>
-                                <td>CSCI-UA.0002</td>
-                                <td>Marc Jacob</td>
-                                <td>3.0</td>
-                                <td>1.2</td>
-                                <td>B</td>
-                                <td>Easy</td>
-                                <td>Easy</td>
-                            </tr>
+                            {{/each}}
                             </tbody>
                         </table>
-                        <a class="text-muted font-small ml-auto float-right">See more comprison</a>
+<!--                        <a class="text-muted font-small ml-auto float-right">See more comprison</a>-->
                     </div>
                 </div>
             </div>
         </section>
+            {{/if}}
         <section class="mb-4 pt-5" >
             <div class="comments-list text-center text-md-left mb-5">
                 <div class="text-center mb-4">
                     <h3 class="font-weight-bold pt-3 mb-5">Reviews <span class="badge pink">{{reviewNum}}</span></h3>
                     <hr>
                 </div>
+                {{#unless reviews}}
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="/img/illustration/noReviews.svg" class="img-fluid">
+                            </div>
+                            <div class="col-md-6 mt-5">
+                                <div class="mb-5">&nbsp;</div>
+                                <h4 class="text-muted text-center">Be The First One To Review This Class</h4>
+                            </div>
+                        </div>
+                    </div>
+                {{/unless}}
                 {{#each reviews as |review|}}
-                <div id="review1" class="row mb-4 p-3" data-wow-delay="0.2s">
+                <div id="review1" class="row mb-4 p-3">
                     <div class="col-sm-2 col-12 mb-md-0 mb-3">
                         <img src="{{userAvatarUrl}}" class="avatar rounded-circle z-depth-1-half">
                     </div>
@@ -154,13 +152,13 @@
                                 <li class="review-date mr-3 dark-grey-text font-small"><i
                                         class="fas fa-clock"></i>&nbsp;{{review.reviewDate}} {{review.reviewSemester}}</li>
                                 <li class="mr-3 dark-grey-text font-small">Grade <span
-                                        class=" badge badge-pill badge-primary">{{review.reviewGrade}}</span></li>
+                                        class=" badge badge-pill badge-primary z-depth-0">{{review.reviewGrade}}</span></li>
                                 <li class="mr-3 dark-grey-text font-small">Quality &nbsp;<i class="rating-quality-{{@index}}"></i>&nbsp;</li>
                                 <li class="mr-3 dark-grey-text font-small">Difficulty &nbsp;<i class="rating-difficulty-{{@index}}"></i>&nbsp;</li>
-                                <li class="mr-3 dark-grey-text font-small">HW Load &nbsp;<span
-                                        class=" badge badge-pill badge-secondary">{{review.hwLoad}}</span></li></li>
+                                <li class="mr-3 dark-grey-text font-small">HW Load: <span
+                                        class=" badge badge-pill badge-light z-depth-0">{{review.hwLoad}} </span></li></li>
                                 <li class="mr-3 dark-grey-text font-small">Exam &nbsp;<span
-                                        class=" badge badge-pill badge-info">{{review.exam}}</span></li></li>
+                                        class=" badge badge-pill badge-light z-depth-0">{{review.exam}}</span></li></li>
                             </ul>
                         </div>
                         <p class="pt-4 pb-3">{{review.reviewContent}}</p>
@@ -170,48 +168,6 @@
                 {{/each}}
             </div>
         </section>
-        <!--/Section: Comments list-->
-
-
-        <!--Section: Leave a reply (Logged In User)-->
-        {{!-- <section class="pb-5 mt-5 wow fadeIn" data-wow-delay="0.3s">
-
-            <!--Leave a reply form-->
-            <div class="reply-form">
-                <h3 class="text-center my-5 h3 pt-3">Leave a reply </h3>
-                <p class="text-center">(Logged In User)</p>
-
-                <!--Third row-->
-                <div class="row text-center text-md-left">
-                    <!--Image column-->
-                    <div class="col-sm-2 col-12 mb-md-0 mt-4">
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img (32).jpg" alt="Sample avatar image"
-                            class="img-fluid avatar rounded-circle z-depth-2">
-                    </div>
-                    <!--/.Image column-->
-
-                    <!--Content column-->
-                    <div class="col-sm-10 col-12">
-                        <div class="md-form">
-                            <textarea type="text" id="form-mess" class="md-textarea form-control" rows="3"></textarea>
-                            <label for="form-mess">Your message</label>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-12 text-center mt-4">
-                        <button class="btn btn-pink btn-rounded">Submit</button>
-                    </div>
-                    <!--/.Content column-->
-
-                </div>
-                <!--/.Third row-->
-            </div>
-            <!--/.Leave a reply form-->
-
-        </section> --}}
-        <!--/Section: Leave a reply (Logged In User)-->
-
     </div>
 
 </main>
@@ -426,6 +382,7 @@
 
 <script>
 
+
     $(document).ready(() => {
 
         $('.mdb-select').materialSelect();
@@ -433,7 +390,6 @@
 
         // Start Initialization
         // Set Rating for Read
-        console.log('good!');
         $.getJSON('/api/getReviews/' + $("#classID").text(), function (data) {
             for(let i=0; i<data[0].reviews.length; i++){
                 $(`.rating-quality-${i}`).starRating({
@@ -496,7 +452,14 @@
             let ctx = document.getElementById('myChart').getContext('2d');
             let ctx2 = document.getElementById('myChart2').getContext('2d');
             let ctx3 = document.getElementById('myChart3').getContext('2d');
-            Chart.defaults.global.legend.display = false;
+            // Chart.defaults.global.legend.display = false;
+            Chart.scaleService.updateScaleDefaults('linear', {
+                ticks: {
+                    min: 0,
+                    stepSize: 1
+                }
+            });
+
             Chart.pluginService.register({
                 afterDraw: function (chart) {
                     if (chart.data.datasets[0].data.length === 0) {
@@ -518,7 +481,7 @@
             });
             const chart = new Chart(ctx, {
                 // The type of chart we want to create
-                type: 'horizontalBar',
+                type: 'bar',
 
                 // The data for our dataset
                 data: {
@@ -548,6 +511,14 @@
                     title: {
                         display: true,
                         text: 'Grade Distribution'
+                    },
+                    legend: {
+                        display: false
+                    },
+                    deferred: {
+                        xOffset: 150,   // defer until 150px of the canvas width are inside the viewport
+                        yOffset: '100%', // defer until 50% of the canvas height are inside the viewport
+                        delay: 700      // delay of 500 ms after the canvas is considered inside the viewport
                     }
                 }
             });
@@ -587,6 +558,11 @@
                     title: {
                         display: true,
                         text: 'HW Load'
+                    },
+                    deferred: {
+                        xOffset: 150,   // defer until 150px of the canvas width are inside the viewport
+                        yOffset: '100%', // defer until 50% of the canvas height are inside the viewport
+                        delay: 700      // delay of 500 ms after the canvas is considered inside the viewport
                     }
 
                 }
@@ -624,6 +600,11 @@
                     title: {
                         display: true,
                         text: 'Exam Hardness'
+                    },
+                    deferred: {
+                        xOffset: 150,   // defer until 150px of the canvas width are inside the viewport
+                        yOffset: '100%', // defer until 50% of the canvas height are inside the viewport
+                        delay: 700      // delay of 500 ms after the canvas is considered inside the viewport
                     }
 
                 }
