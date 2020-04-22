@@ -78,8 +78,7 @@ exports.searchClass = (req, res)=>{
             res.json(sorted);
             break;
         default:
-            sorted = sorted.sort((a, b) => (a.overallClassQualityRate > b.overallClassQualityRate) ? -1 : 1);
-            res.json(sorted);
+            res.json(result);
             break;
     };
 });
