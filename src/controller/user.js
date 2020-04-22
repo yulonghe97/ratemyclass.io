@@ -10,14 +10,14 @@ const university = require('./university'),
 exports.indexPage = (req, res) => {
     if (req.user) {
         // User Signed In
-        res.render("index.hbs",
+        res.render("landing",
             {
                 userNickname: req.user.userNickname,
                 signedOut: false,
                 avatar: req.user.userAvatarUrl,
             });
     } else {
-        res.render("index.hbs", {signedOut: true});
+        res.render("landing", {signedOut: true});
     }
 };
 

@@ -1,0 +1,132 @@
+<script src="https://cdn.jsdelivr.net/npm/typeit@6.1.1/dist/typeit.min.js"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900');
+    $font: 'Lato',
+    sans-serif;
+    $big: 'Montserrat',
+    sans-serif;
+    $red: #EF2F3C;
+    $white: #F6F4F3;
+    $blue: #276FBF;
+    $dark: #183059;
+    $yellow: #F0A202;
+    $star: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+
+
+    body {
+        display: grid;
+        background: $dark;
+    }
+
+    h1 {
+        font-family: $font;
+        text-align: center;
+        margin-top: 2em;
+        font-size: 1em;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        color: $white;
+    }
+
+    #timer {
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: $font;
+        font-size: .7em;
+        letter-spacing: 5px;
+        margin-top: 25%;
+    }
+
+    .days,
+    .hours,
+    .minutes,
+    .seconds {
+        display: inline-block;
+        padding: 10px;
+        width: 100px;
+        border-radius: 5px;
+    }
+
+    .seconds {
+        background: $yellow;
+
+        .numbers {}
+    }
+
+    .numbers {
+        font-family: $big;
+        color: $dark;
+        font-size: 4em;
+    }
+</style>
+
+
+<div class="container-fluid d-flex justify-content-center">
+    {{!-- <div id="timer">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="days">
+                    <div class="numbers">1,230</div>
+                    <p class="text-center">&nbsp;&nbsp;Classes</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="days">
+                    <div class="numbers">13,200</div>&nbsp;&nbsp;Reviews
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="days">
+                    <div class="numbers">2,399</div>&nbsp;&nbsp;Users
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <div class="" style="font-size: 5rem;">
+        <div class="row">
+            <div class="col-md-12">
+                 <h1 id="type"></h1>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div id="startBtn" class="col-md-2 mx-auto d-none">
+                <a href="/userReg" class="btn btn-outline-black btn-block">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+     let instance = new TypeIt("#type", {
+            speed: 150,
+            nextStringDelay:750,
+            afterComplete: async function(step, instance){
+                $('#startBtn').removeClass('d-none');
+            }
+        })
+        .type("Review Your Class")
+        .pause(1000)
+        .delete()
+        .type("2,399")
+        .break()
+        .type("Classes Added")
+        .pause(1000)
+        .delete()
+        .type("10,000 ")
+        .break()
+        .type("Reviews Posted")
+        .pause(1000)
+        .delete()
+        .type("4,379")
+        .break()
+        .type("Students Joined")
+        .pause(1000)
+        .delete()
+        .type("Join the community.")
+        .go();
+    
+
+</script>

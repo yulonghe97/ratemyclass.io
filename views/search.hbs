@@ -11,7 +11,7 @@
                 <div class="col col-md-12">
                     <!-- Search form -->
                     <form id="searchForm" class="form-inline d-flex md-form">
-                        <input class="form-control form-control-lg ml-3 w-75" type="text" placeholder="Name/Code/Professor"
+                        <input id="searchQuery" class="form-control form-control-lg ml-3 w-75" type="text" placeholder="Name/Code/Professor"
                                aria-label="Search">
                         <div class="d-flex justify-content-start ml-3">
                             <div id="spinner" class="spinner-border text-primary m-1 d-none" role="status">
@@ -37,7 +37,7 @@
                 <!-- Material input -->
                 <div class="row">
                     <div class="col-md-12 select-outline">
-                        <select class="mdb-select md-form md-outline colorful-select dropdown-primary">
+                        <select id="sortDropdown" class="mdb-select md-form md-outline colorful-select dropdown-primary">
                             <option value="relevance" >Relevance</option>
                             <option value="quality">Quality</option>
                             <option value="difficulty">Difficulty</option>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-5">
+            {{!-- <div class="mb-5">
                 <h5 class="text-dark p-2">Tags</h5>
                 <div class="tagcloud">
                     <a href="#" class="tag-cloud-link">Clear</a>
@@ -63,8 +63,9 @@
                     <a href="#" class="tag-cloud-link">Good Feedback</a>
                     <a href="#" class="tag-cloud-link">Caring</a>
                 </div>
-            </div>
+            </div> --}}
             <p class="text-dark p-2"><a class="text-muted">Can't find class? </a><a href="/addClass">Add it</a></p>
+            <p class="text-dark p-2" style="line-height: 20px; "><a class="text-dark">Why do I have to login?</a><small class="text-muted"><br>In order to ensure our review quality, we want you to register an anonymous account</small></p>
         </div>
     </nav>
 
@@ -190,9 +191,34 @@
         }
     }
 
-    $("#searchForm").keyup(delay(function (event) {
+    $('#sortDropdown').change(delay(function (event) {
             $("#result").empty();
-            $.getJSON(`/api/searchClass/${event.target.value}`, function (data) {
+            if($('#searchQuery').val() === ''){
+                alert('Please enter either class name/code/professor!');
+                $("#spinner").addClass('d-none');
+                noResult();
+            }else{
+                $.getJSON(`/api/searchClass/${$('#searchQuery').val()}/${this.value}`, function (data) {
+                if(data.length < 1){
+                    noResult();
+                }else{
+                    for(let i=0; i<data.length;i++){
+                        addResult(data[i],i);
+                    }
+                }
+                setTimeout(function () {
+                    $("#spinner").addClass('d-none');
+                },800);
+            });
+            }
+    },500))
+
+    $("#searchForm").keyup(delay(function (event) {
+            if(event.target.value === ''){
+                $("#spinner").addClass('d-none');
+            }
+            $("#result").empty();
+            $.getJSON(`/api/searchClass/${event.target.value}/${$('#sortDropdown').val()}`, function (data) {
                 if(data.length < 1){
                     noResult();
                 }else{

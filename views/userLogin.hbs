@@ -1,6 +1,8 @@
+<link rel="stylesheet" type="text/css" href="/js/overhang/overhang.min.css" />
+<script type="text/javascript" src="/js/overhang/overhang.min.js"></script>
 <!--LOGIN-->
 <div class="container mt-5">
-    <div id="error" class="alert alert-danger animated fadeIn" role="alert">
+    <div id="error" class="d-none" role="alert">
         <a id="errorMsg">{{Error}}</a>
     </div>
     <div class="row mb-5"></div>
@@ -52,12 +54,11 @@
         if($('#errorMsg').text() === ''){
             $('#error').addClass('d-none');
         }else{
-            setTimeout(()=>{
-                $('#error').removeClass('fadeIn').addClass('fadeOut');
-                setTimeout(()=>{
-                    $('#error').addClass('d-none');
-                },500);
-            }, 2000);
+             $("body").overhang({
+                            type: "error",
+                            message: $('#errorMsg').text(),
+                            duration: 2
+                        });
         }
     }
 

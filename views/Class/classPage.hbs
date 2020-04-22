@@ -2,6 +2,8 @@
 <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script src="/js/chartjs-plugin-deferred.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/overhang/overhang.min.css" />
+<script type="text/javascript" src="/js/overhang/overhang.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/plugins/rating/css/star-rating-svg.css">
 <!--Main Layout-->
 <div class="spinner-wrapper">
@@ -20,12 +22,12 @@
                     <!-- Card -->
                     <div class="card">
                         <div class="card-body card-body-cascade text-center">
-<!--                            <div class="d-flex justify-content-end p-3">-->
-<!--                                &lt;!&ndash; Card image &ndash;&gt;-->
-<!--                                <img class="card-img-top img-fluid" style="width: 100px"-->
-<!--                                     src="https://images-na.ssl-images-amazon.com/images/I/617H1Z7lr8L._AC_SL1500_.jpg"-->
-<!--                                     alt="Card image cap">-->
-<!--                            </div>-->
+                            <!--                            <div class="d-flex justify-content-end p-3">-->
+                            <!--                                &lt;!&ndash; Card image &ndash;&gt;-->
+                            <!--                                <img class="card-img-top img-fluid" style="width: 100px"-->
+                            <!--                                     src="https://images-na.ssl-images-amazon.com/images/I/617H1Z7lr8L._AC_SL1500_.jpg"-->
+                            <!--                                     alt="Card image cap">-->
+                            <!--                            </div>-->
                             <h2 class="p-2"><a><strong>{{course.className}}</strong></a></h2>
                             <p>
                                 <a>{{course.classCode}}&nbsp;</a>
@@ -77,17 +79,17 @@
         <h4 class="pt-4">Analysis</h4>
         <hr>
         <section class="charts p-2">
-        <div class="row justify-content-start">
-            <div class="col-md-4">
-                <canvas class="ml-n3" id="myChart" width="300" height="250"></canvas>
+            <div class="row justify-content-start">
+                <div class="col-md-4">
+                    <canvas class="ml-n3" id="myChart" width="300" height="250"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <canvas class="ml-n3" id="myChart2" width="300" height="250"></canvas>
+                </div>
+                <div class="col-md-4">
+                    <canvas class="ml-n3" id="myChart3" width="300" height="250"></canvas>
+                </div>
             </div>
-            <div class="col-md-4">
-                <canvas class="ml-n3" id="myChart2" width="300" height="250"></canvas>
-            </div>
-            <div class="col-md-4">
-                <canvas class="ml-n3" id="myChart3" width="300" height="250"></canvas>
-            </div>
-        </div>
         </section>
         {{#if relatedClass}}
         <h4 class="pt-5">Related Class & Professor</h4>
@@ -98,52 +100,52 @@
                     <div class="text-left">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th scope="col">Class</th>
-                                <th scope="col">Professor</th>
-                                <th scope="col">Quality</th>
-                                <th scope="col">Difficulty</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col">&nbsp;</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">Class</th>
+                                    <th scope="col">Professor</th>
+                                    <th scope="col">Quality</th>
+                                    <th scope="col">Difficulty</th>
+                                    <th scope="col">Grade</th>
+                                    <th scope="col">&nbsp;</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            {{#each relatedClass as |Class| }}
-                            <tr>
-                                <td>{{Class.classCode}}</td>
-                                <td>{{Class.professor}}</td>
-                                <td>{{Class.overallClassQualityRate}}</td>
-                                <td>{{Class.overallClassDifficultyRate}}</td>
-                                <td>{{Class.overallGradeLetter}}</td>
-                                <td><a class="dark-grey-text" href={{Class._id}}>view</a></td>
-                            </tr>
-                            {{/each}}
+                                {{#each relatedClass as |Class| }}
+                                <tr>
+                                    <td>{{Class.classCode}}</td>
+                                    <td>{{Class.professor}}</td>
+                                    <td>{{Class.overallClassQualityRate}}</td>
+                                    <td>{{Class.overallClassDifficultyRate}}</td>
+                                    <td>{{Class.overallGradeLetter}}</td>
+                                    <td><a class="dark-grey-text" href={{Class._id}}>view</a></td>
+                                </tr>
+                                {{/each}}
                             </tbody>
                         </table>
-<!--                        <a class="text-muted font-small ml-auto float-right">See more comprison</a>-->
+                        <!--                        <a class="text-muted font-small ml-auto float-right">See more comprison</a>-->
                     </div>
                 </div>
             </div>
         </section>
-            {{/if}}
-        <section class="mb-4 pt-5" >
+        {{/if}}
+        <section class="mb-4 pt-5">
             <div class="comments-list text-center text-md-left mb-5">
                 <div class="text-center mb-4">
                     <h3 class="font-weight-bold pt-3 mb-5">Reviews <span class="badge pink">{{reviewNum}}</span></h3>
                     <hr>
                 </div>
                 {{#unless reviews}}
-                    <div class="container mt-3">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="/img/illustration/noReviews.svg" class="img-fluid">
-                            </div>
-                            <div class="col-md-6 mt-5">
-                                <div class="mb-5">&nbsp;</div>
-                                <h4 class="text-muted text-center">Be The First One To Review This Class</h4>
-                            </div>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="/img/illustration/noReviews.svg" class="img-fluid">
+                        </div>
+                        <div class="col-md-6 mt-5">
+                            <div class="mb-5">&nbsp;</div>
+                            <h4 class="text-muted text-center">Be The First One To Review This Class</h4>
                         </div>
                     </div>
+                </div>
                 {{/unless}}
                 {{#each reviews as |review|}}
                 <div id="review1" class="row mb-4 p-3">
@@ -157,15 +159,21 @@
                         <div class="mt-2">
                             <ul class="list-unstyled list-group list-group-horizontal">
                                 <li class="review-date mr-3 dark-grey-text font-small"><i
-                                        class="fas fa-clock"></i>&nbsp;{{review.reviewDate}} {{review.reviewSemester}}</li>
+                                        class="fas fa-clock"></i>&nbsp;{{review.reviewDate}} {{review.reviewSemester}}
+                                </li>
                                 <li class="mr-3 dark-grey-text font-small">Grade <span
-                                        class=" badge badge-pill badge-primary z-depth-0">{{review.reviewGrade}}</span></li>
-                                <li class="mr-3 dark-grey-text font-small">Quality &nbsp;<i class="rating-quality-{{@index}}"></i>&nbsp;</li>
-                                <li class="mr-3 dark-grey-text font-small">Difficulty &nbsp;<i class="rating-difficulty-{{@index}}"></i>&nbsp;</li>
+                                        class=" badge badge-pill badge-primary z-depth-0">{{review.reviewGrade}}</span>
+                                </li>
+                                <li class="mr-3 dark-grey-text font-small">Quality &nbsp;<i
+                                        class="rating-quality-{{@index}}"></i>&nbsp;</li>
+                                <li class="mr-3 dark-grey-text font-small">Difficulty &nbsp;<i
+                                        class="rating-difficulty-{{@index}}"></i>&nbsp;</li>
                                 <li class="mr-3 dark-grey-text font-small">HW Load: <span
-                                        class=" badge badge-pill badge-light z-depth-0">{{review.hwLoad}} </span></li></li>
+                                        class=" badge badge-pill badge-light z-depth-0">{{review.hwLoad}} </span></li>
+                                </li>
                                 <li class="mr-3 dark-grey-text font-small">Exam &nbsp;<span
-                                        class=" badge badge-pill badge-light z-depth-0">{{review.exam}}</span></li></li>
+                                        class=" badge badge-pill badge-light z-depth-0">{{review.exam}}</span></li>
+                                </li>
                             </ul>
                         </div>
                         <p class="pt-4 pb-3">{{review.reviewContent}}</p>
@@ -196,7 +204,7 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-12 mt-3">
                         <form id="reviewForm" method="POST" action="/addReview">
-                        <input type="text" id="currentClass" name="currentClass" class="d-none">
+                            <input type="text" id="currentClass" name="currentClass" class="d-none">
                             <div class="form-group">
                                 <p class="form-text">
                                     <span class="h5">You are adding reviews for</span>
@@ -223,10 +231,14 @@
                                     <div class="col">
                                         <p class="h6">Quality <i class="rating-rate-quality"></i></p>
                                         <input class="d-none" type="text" name="classQuality" id="classQuality">
+                                        <small id="qualityError" class="text-danger d-none">Please give the class a
+                                            quality rate.</small>
                                     </div>
                                     <div class="col">
                                         <p class="h6">Difficulty <i class="rating-rate-difficulty"></i></p>
                                         <input class="d-none" type="text" name="classDifficulty" id="classDifficulty">
+                                        <small id="difficultyError" class="text-danger d-none">Please give the class a
+                                            difficulty rate.</small>
                                     </div>
                                 </div>
                                 <p class="form-text">
@@ -237,56 +249,71 @@
                                         <label class="col-sm-auto col-form-label">Homework Load</label>
                                         <!-- HW Load -->
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Very Easy" id="hwLoad1" name="hwLoad">
+                                            <input type="radio" class="form-check-input" value="Very Easy" id="hwLoad1"
+                                                name="hwLoad">
                                             <label class="form-check-label" for="hwLoad1">Very Easy</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Easy" id="hwLoad2" name="hwLoad">
+                                            <input type="radio" class="form-check-input" value="Easy" id="hwLoad2"
+                                                name="hwLoad">
                                             <label class="form-check-label" for="hwLoad2">Easy</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Fair" id="hwLoad3" name="hwLoad">
+                                            <input type="radio" class="form-check-input" value="Fair" id="hwLoad3"
+                                                name="hwLoad">
                                             <label class="form-check-label" for="hwLoad3">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Hard" id="hwLoad4" name="hwLoad">
+                                            <input type="radio" class="form-check-input" value="Hard" id="hwLoad4"
+                                                name="hwLoad">
                                             <label class="form-check-label" for="hwLoad4">Hard</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Impossible" id="hwLoad5" name="hwLoad">
+                                            <input type="radio" class="form-check-input" value="Impossible" id="hwLoad5"
+                                                name="hwLoad">
                                             <label class="form-check-label" for="hwLoad5">Impossible</label>
                                         </div>
+                                        <p class="ml-3"><small id="hwLoadError" class="text-danger d-none">Please select
+                                                the homework load</small></p>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-row mb-2 pt-2">
                                     <div class="col-md-12">
-                                        <label class="col-sm-auto col-form-label" style="margin-right: 75px">Exam</label>
-                                        <!-- HW Load -->
+                                        <label class="col-sm-auto col-form-label"
+                                            style="margin-right: 75px">Exam</label>
+                                        <!-- Exam -->
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Very Easy" id="Exam1" name="exam">
+                                            <input type="radio" class="form-check-input" value="Very Easy" id="Exam1"
+                                                name="exam">
                                             <label class="form-check-label" for="Exam1">Very Easy</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Easy" id="Exam2" name="exam">
+                                            <input type="radio" class="form-check-input" value="Easy" id="Exam2"
+                                                name="exam">
                                             <label class="form-check-label" for="Exam2">Easy</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Fair" id="Exam3" name="exam">
+                                            <input type="radio" class="form-check-input" value="Fair" id="Exam3"
+                                                name="exam">
                                             <label class="form-check-label" for="Exam3">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Hard" id="Exam4" name="exam">
+                                            <input type="radio" class="form-check-input" value="Hard" id="Exam4"
+                                                name="exam">
                                             <label class="form-check-label" for="Exam4">Hard</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" value="Impossible" id="Exam5" name="exam">
+                                            <input type="radio" class="form-check-input" value="Impossible" id="Exam5"
+                                                name="exam">
                                             <label class="form-check-label" for="Exam5">Impossible</label>
                                         </div>
+                                        <p class="ml-3"><small id="examDifficultyError"
+                                                class="text-danger d-none">Please select the exam difficulty</small></p>
                                     </div>
                                 </div>
                                 <hr>
@@ -300,6 +327,8 @@
                                             <option value="summer">Summer</option>
                                             <option value="winter">Winter</option>
                                         </select>
+                                        <p class="ml-3"><small id="semesterError" class="text-danger d-none">Please
+                                                select the choose a semester</small></p>
                                     </div>
                                     <div class="col-md-4 offset-2">
                                         <select name="grade" class="mdb-select md-form" style="font-family: Istok Web;">
@@ -343,8 +372,7 @@
 </div>
 
 <!-- SUCCESS MODEL-->
-<div class="modal fade" id="reviewAddedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-success" role="document">
         <!--Content-->
         <div class="modal-content">
@@ -354,6 +382,21 @@
                 <div class="text-center">
                     <i class="fas fa-check fa-4x mb-3 animated rotateIn" style="font-size: 80px;"></i>
                     <p style="font-size: 20px;">Review Added!</p>
+                </div>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+
+<!-- Login Msg Modal-->
+<div id="loginMsgModal" class="modal fade" role="dialog" aria-labelledby="login" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-success" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <p>In order to preserve the review quality. Please Login to review this class.</p>
                 </div>
             </div>
         </div>
@@ -376,7 +419,7 @@
     <!--Copyright-->
     <div class="page-footer py-3 text-center">
         <div class="container-fluid d-flex justify-content-end">
-            <a class="btn btn-sm btn-rounded btn-primary" data-toggle="modal" data-target="#addReviewModal">Add
+            <a id="addReviewBtn" class="btn btn-sm btn-rounded btn-primary">Add
                 review</a>
             <a class="btn btn-sm btn-rounded btn-default"><i class="fas fa-plus mr-1"></i>Follow</a>
             </a>
@@ -390,8 +433,8 @@
 <script>
 
 
-
     $(document).ready(() => {
+
 
         // Hide the Preloader When Loaded
         const preloaderFadeOutTime = 2000;
@@ -407,7 +450,7 @@
         // Start Initialization
         // Set Rating for Read
         $.getJSON('/api/getReviews/' + $("#classID").text(), function (data) {
-            for(let i=0; i<data[0].reviews.length; i++){
+            for (let i = 0; i < data[0].reviews.length; i++) {
                 $(`.rating-quality-${i}`).starRating({
                     useFullStars: false,
                     starShape: 'rounded',
@@ -427,13 +470,13 @@
                 useFullStars: false,
                 starShape: 'rounded',
                 starSize: 20,
-                forceRoundUp:true
+                forceRoundUp: true
             });
             $(`.rating-overall-difficulty`).starRating({
                 useFullStars: false,
                 starShape: 'rounded',
                 starSize: 20,
-                forceRoundUp:true
+                forceRoundUp: true
             });
 
             // Round up for stars
@@ -443,18 +486,18 @@
             classDifficultyRate = data[0].overallClassDifficultyRate;
             const QualityRateDec = classQualityRate - Math.floor(classQualityRate);
             const DifficultyRateDec = classDifficultyRate - Math.floor(classDifficultyRate);
-            if(QualityRateDec >= 0.35 && QualityRateDec < 0.50){
+            if (QualityRateDec >= 0.35 && QualityRateDec < 0.50) {
                 classQualityRate = Math.floor(classQualityRate) + 0.50;
-            } else if(QualityRateDec >= 0.50 && QualityRateDec < 0.75){
+            } else if (QualityRateDec >= 0.50 && QualityRateDec < 0.75) {
                 classQualityRate = Math.floor(classQualityRate) + 0.50;
-            }else if(QualityRateDec >= 0.75){
+            } else if (QualityRateDec >= 0.75) {
                 classQualityRate = Math.ceil(classQualityRate);
             }
-            if(DifficultyRateDec >= 0.35 && DifficultyRateDec < 0.50){
+            if (DifficultyRateDec >= 0.35 && DifficultyRateDec < 0.50) {
                 classDifficultyRate = Math.floor(classDifficultyRate) + 0.50;
-            } else if(DifficultyRateDec >= 0.50 && DifficultyRateDec < 0.75){
+            } else if (DifficultyRateDec >= 0.50 && DifficultyRateDec < 0.75) {
                 classDifficultyRate = Math.floor(classDifficultyRate) + 0.50;
-            }else if(DifficultyRateDec >= 0.75){
+            } else if (DifficultyRateDec >= 0.75) {
                 classDifficultyRate = Math.ceil(classDifficultyRate);
             }
 
@@ -504,7 +547,7 @@
                     labels: ['A', 'B', 'C', 'D', 'F'],
                     datasets: [{
                         data: data[1].grade,
-                        backgroundColor:[
+                        backgroundColor: [
                             'rgba(75, 192, 192, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
@@ -544,14 +587,14 @@
 
             const chart2 = new Chart(ctx2, {
                 // The type of chart we want to create
-                type: 'pie',
+                type: 'radar',
 
                 // The data for our dataset
                 data: {
-                    labels: ['Very Easy','Easy','Fair','Hard','Impossible'],
+                    labels: ['Very Easy', 'Easy', 'Fair', 'Hard', 'Impossible'],
                     datasets: [{
                         data: data[1].hwLoad,
-                        backgroundColor:[
+                        backgroundColor: [
                             'rgba(75, 192, 192, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
@@ -575,6 +618,9 @@
                         display: true,
                         text: 'HW Load'
                     },
+                    legend: {
+                        display: false
+                    },
                     deferred: {
                         xOffset: 150,   // defer until 150px of the canvas width are inside the viewport
                         yOffset: '100%', // defer until 50% of the canvas height are inside the viewport
@@ -586,14 +632,14 @@
 
             const chart3 = new Chart(ctx3, {
                 // The type of chart we want to create
-                type: 'pie',
+                type: 'radar',
 
                 // The data for our dataset
                 data: {
-                    labels: ['Very Easy','Easy','Fair','Hard','Impossible'],
+                    labels: ['Very Easy', 'Easy', 'Fair', 'Hard', 'Impossible'],
                     datasets: [{
                         data: data[1].exam,
-                        backgroundColor:[
+                        backgroundColor: [
                             'rgba(75, 192, 192, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
@@ -615,7 +661,10 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Exam Hardness'
+                        text: 'Exam Difficulty'
+                    },
+                    legend: {
+                        display: false
                     },
                     deferred: {
                         xOffset: 150,   // defer until 150px of the canvas width are inside the viewport
@@ -626,6 +675,24 @@
                 }
             });
 
+        });
+
+
+        // Add Review Authentication Check
+        $('#addReviewBtn').click(function () {
+            $.getJSON('/api/checkLogin', function (data) {
+                if (data.loggedIn) {
+                    $('#addReviewModal').modal('show');
+                } else {
+                        $("body").overhang({
+                            type: "error",
+                            message: "In order to ensure the review quality. Please Login. (You can still be anonymous!!)",
+                            closeConfirm: true,
+                            overlay:true,
+                            duration: 5
+                        });
+                }
+            });
         });
 
         // Set Star Rating for Write
@@ -651,12 +718,73 @@
             }
         });
 
+        // validete the form
+
+        let isQuality, isDifficulty, isHwLoad, isExam, isSemester = true;
+
+        function validateForm() {
+            // Validate Quality
+            if (!$('#classQuality').val()) {
+                isQuality = false;
+                $('#qualityError').removeClass('d-none');
+            } else {
+                isQuality = true;
+                $('#qualityError').addClass('d-none');
+            }
+            // Validate Difficulty
+            if (!$('#classDifficulty').val()) {
+                isDifficulty = false;
+                $('#difficultyError').removeClass('d-none');
+            } else {
+                isDifficulty = true;
+                $('#difficultyError').addClass('d-none');
+            }
+            // Validate Homework Load
+            if (!$("input[name='hwLoad']:checked").val()) {
+                isHwLoad = false;
+                $('#hwLoadError').removeClass('d-none');
+            } else {
+                isHwLoad = true;
+                $('#hwLoadError').addClass('d-none');
+            }
+            // Validate Exam
+            if (!$("input[name='exam']:checked").val()) {
+                isExam = false;
+                $('#examDifficultyError').removeClass('d-none');
+            } else {
+                isExam = true;
+                $('#examDifficultyError').addClass('d-none');
+            }
+            // Validate Semester
+            if (!$("select[name='semester']").val()) {
+                isSemester = false;
+                $('#semesterError').removeClass('d-none');
+            } else {
+                isSemester = true;
+                $('#semesterError').addClass('d-none');
+            }
+
+            if (isQuality && isDifficulty && isHwLoad && isExam && isSemester) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+
 
         // Submit
         $('#submitBtn').click(function (e) {
-            $('#currentClass').val($('#classID').text());
-            $('#addReviewModal').modal('hide');
-            $('#reviewAddedModal').modal('show');
+            const validated = validateForm();
+            if (validated) {
+                $('#currentClass').val($('#classID').text());
+                $('#addReviewModal').modal('hide');
+                $('#reviewAddedModal').modal('show');
+            } else {
+                e.preventDefault();
+            }
+
         });
 
     });

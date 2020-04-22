@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="/js/overhang/overhang.min.css" />
+<script type="text/javascript" src="/js/overhang/overhang.min.js"></script>
 <div class="container mt-5">
     <div class="row mb-5"></div>
     <div class="row d-flex align-items-center justify-content-center">
@@ -81,8 +83,6 @@
                                 <div class="mask rgba-white-slight"></div>
                             </a>
                         </div>
-
-                        <!-- Card content -->
                         <div class="card-body card-body-cascade text-center">
 
                             <!-- Title -->
@@ -107,34 +107,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Card Regular -->
-            <!-- Card -->
-<!--            <div class="card testimonial-card animated fadeIn">-->
-
-<!--                &lt;!&ndash; Background color &ndash;&gt;-->
-<!--                <div class="card-up deep-blue-gradient"></div>-->
-
-<!--                &lt;!&ndash; Avatar &ndash;&gt;-->
-<!--                <div class="avatar mx-auto white">-->
-<!--                    <img id="avatar" name="avatar" for="reg-form"-->
-<!--                        src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2218830337,1381842479&fm=26&gp=0.jpg"-->
-<!--                        class="rounded-circle img-fluid z-depth-1" alt="woman avatar">-->
-<!--                </div>-->
-
-<!--                &lt;!&ndash; Content &ndash;&gt;-->
-<!--                <div class="card-body">-->
-<!--                    &lt;!&ndash; Name &ndash;&gt;-->
-<!--                    <h4 class="card-title" id="previewNickname">-->
-<!--                        BARD-->
-<!--                    </h4>-->
-<!--                    <hr>-->
-<!--                    &lt;!&ndash; Quotation &ndash;&gt;-->
-<!--                    <div class="text-center" id="previewSchool"><i class="fas fa-university"></i><a-->
-<!--                            id="schoolName">&nbspSchool</a></div>-->
-<!--                </div>-->
-
-<!--            </div>-->
-            <!-- Card -->
             <button id="randomButton" class="btn btn-sm rounded btn-outline-grey mtn-4 mb-3">Randomize</button>
         </div>
     </div>
@@ -158,7 +130,7 @@
     });
 
 
-    let formValid = true;
+    let formValid = false;
 
     // randomize avatar
     function getRandomAvatar(type, username) {
@@ -176,24 +148,6 @@
         getRandomAvatar(evt.target.value, $('input#username').val());
     });
 
-    // toast settings
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "md-toast-top-center",
-        "preventDuplicates": true,
-        "onclick": null,
-        "showDuration": 300,
-        "hideDuration": 1000,
-        "timeOut": 5000,
-        "extendedTimeOut": 1000,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    };
 
     // Validate username
     $('input#username').change(function(e){
@@ -223,13 +177,66 @@
         getRandomAvatar($('#avatarType').val(), $('input#username').val());
     });
 
+    function lengthValidation(){
+        let IsUsername, IsPassword, IsNickname = false;
+        const regex = /([a-zA-Z0-9_-]){3,15}$/;
+        const nickNameRegex = /([^\s]){2,10}$/;
+        if(regex.test($('input#username').val())){
+            IsUsername = true;
+            console.log('username pass');
+        }else{
+            IsUsername = false;
+             $("body").overhang({
+                            type: "error",
+                            message: "Username must be between 3-15 alphbetical characters or symbol '_-'",
+                            overlay:true,
+                            duration: 2
+            });
+        }
+        if(regex.test($('input#password').val())){
+            IsPassword = true;
+            console.log('password pass')
+        }else{
+            IsPassword = false;
+            $("body").overhang({
+                            type: "error",
+                            message: "Password must be between 3-15 alphbetical characters or symbol '_-'",
+                            overlay:true,
+                            duration: 2
+            });
+        }
+        if(nickNameRegex.test($('input#nickname').val())){
+            console.log('nickname passed.')
+            IsNickname = true;
+        }else{
+            IsNickname = false;
+            $("body").overhang({
+                            type: "error",
+                            message: "Nickname must not contain blank space, and be at least 2 characters",
+                            overlay:true,
+                            duration: 2
+            });
+        }
+        if(IsUsername && IsPassword && IsNickname){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     // Check validation before submit
     $('#submitButton').click((e)=>{
-       if(!formValid){
+       const isValidLength =  lengthValidation();
+       if(!formValid && !isValidLength){
            // prevent submission
            e.preventDefault();
-           toastr["error"]("Please check the form requirements");
+           $("body").overhang({
+                            type: "error",
+                            message: "Please Check if you have valid inputs!",
+                            overlay:true,
+                            duration: 2
+                        });
        } 
     });
 

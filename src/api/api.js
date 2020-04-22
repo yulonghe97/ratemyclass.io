@@ -61,9 +61,27 @@ exports.getClassInfo = async (req, res)=>{
 };
 
 exports.searchClass = (req, res)=>{
+    console.log(req.params);
   Class.searchClass(req.params.query, (result)=>{
-      res.json(result);
-  });
-};
+      let sorted = [...result];
+      switch (req.params.sort) {
+        case 'quality':
+            sorted = sorted.sort((a, b) => (a.overallClassQualityRate > b.overallClassQualityRate) ? -1 : 1);
+            res.json(sorted);
+            break;
+        case 'difficulty':
+            sorted = sorted.sort((a, b) => (a.overallClassDifficultyRate > b.overallClassDifficultyRate) ? -1 : 1);
+            res.json(sorted);
+            break;
+        case 'grade':
+            sorted = sorted.sort((a, b) => (a.overallGradeScore > b.overallGradeScore) ? -1 : 1);
+            res.json(sorted);
+            break;
+        default:
+            sorted = sorted.sort((a, b) => (a.overallClassQualityRate > b.overallClassQualityRate) ? -1 : 1);
+            res.json(sorted);
+            break;
+    };
+});
 
-
+}

@@ -8,7 +8,8 @@ const router = require('express').Router(),
 
 
 // Index Page, //underdevelopment
-router.get('/', search.getSearchPage);
+router.get('/', user.indexPage);
+
 
 // Search Page
 router.get('/search', search.getSearchPage);
@@ -44,7 +45,7 @@ router.get('/api/checkLogin', api.checkLogin);
 // router.get('/api/:seed', api.getRandomAvatar);
 router.get('/api/getReviews/:classId', api.getReview);
 // Class Search
-router.get('/api/searchClass/:query', api.searchClass);
+router.get('/api/searchClass/:query/:sort', api.searchClass);
 router.get('/api/saveU/:name/:abbr', api.saveUniversity);
 router.get('/api/class/:classId', api.getClassInfo);
 
