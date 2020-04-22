@@ -24,7 +24,7 @@ exports.indexPage = (req, res) => {
 // User Login/Logout
 exports.userLoginGet = (req, res) => {
     if(req.user){
-        res.redirect('/');
+        res.redirect('/search');
         return
     }
     res.render("userLogin.hbs", {
@@ -39,7 +39,7 @@ exports.userLoginPost = (req, res, next) => {
         {
             failureFlash: true,
             failureRedirect: '/userLogin',
-            successRedirect: '/'
+            successRedirect: '/search'
         })(req, res, next);
 };
 
@@ -53,7 +53,7 @@ exports.logout = (req, res) => {
 // User Registration
 exports.userRegGet = (req, res) => {
     if(req.user){
-        res.redirect('/');
+        res.redirect('/search');
         return
     }
     res.render("userReg.hbs", {signedOut: true});
