@@ -5,13 +5,6 @@
     sans-serif;
     $big: 'Montserrat',
     sans-serif;
-    $red: #EF2F3C;
-    $white: #F6F4F3;
-    $blue: #276FBF;
-    $dark: #183059;
-    $yellow: #F0A202;
-    $star: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-
 
     body {
         display: grid;
@@ -28,62 +21,11 @@
         color: $white;
     }
 
-    #timer {
-        color: $white;
-        text-align: center;
-        text-transform: uppercase;
-        font-family: $font;
-        font-size: .7em;
-        letter-spacing: 5px;
-        margin-top: 25%;
-    }
-
-    .days,
-    .hours,
-    .minutes,
-    .seconds {
-        display: inline-block;
-        padding: 10px;
-        width: 100px;
-        border-radius: 5px;
-    }
-
-    .seconds {
-        background: $yellow;
-
-        .numbers {}
-    }
-
-    .numbers {
-        font-family: $big;
-        color: $dark;
-        font-size: 4em;
-    }
 </style>
 
 
 <div class="container-fluid d-flex justify-content-center">
-    {{!-- <div id="timer">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="days">
-                    <div class="numbers">1,230</div>
-                    <p class="text-center">&nbsp;&nbsp;Classes</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="days">
-                    <div class="numbers">13,200</div>&nbsp;&nbsp;Reviews
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="days">
-                    <div class="numbers">2,399</div>&nbsp;&nbsp;Users
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <div class="" style="font-size: 5rem;">
+    <div style="font-size: 5rem;">
         <div class="row">
             <div class="col-md-12">
                  <h1 id="type"></h1>
@@ -96,7 +38,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
 
