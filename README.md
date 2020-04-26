@@ -226,16 +226,7 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 
 ----
 
-* (5 points) Integrate user authentication
-  * mayuse pass.js/permit for user authentication
-  * user authentication
-  * Admin panel authentication
-* (2 points) BootStrap CSS Framework
-* (3 points) webpack
-* (1-6points) jQuery
-* (1-6points) reCAPTCHA
-* (1-6points) axios (maybe)
-* (1-6points) cheerio (maybe)
+* See Below
 
 ### [Link to Initial Main Project File](https://github.com/nyu-csci-ua-0480-008-spring-2020/yulonghe97-final-project/blob/ee1b9544c20b25edcb85375ec964bed372d6e60f/src/app.js#L1)
 
@@ -244,12 +235,16 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 ---
 
 1. [bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
+
 2. [jQuery](https://api.jquery.com/)
+
 3. [Passport.js](http://www.passportjs.org/docs/)
+
 4. [reCAPTCHA](https://developers.google.com/recaptcha/docs/display)
+
 5. [Webpack](https://webpack.js.org/concepts/)
 
-
+   
 
 #### Features Completed
 
@@ -266,3 +261,31 @@ The system will have Class, Reviews, User, University, Adminstration as class ob
 |    School Selection     | 2020-04-06 | Search and Select school using JS during registration  |
 |    Password Hashing     | 2020-04-07 |             Password hashing using bycrpt              |
 
+... TO BE UPDATED
+
+
+
+### Final Project Checklist
+
+---
+
+- [x] minimum 3 x forms or ajax interactions (**excluding login**)
+  - [x] AJAX Search Form
+  - [x] Add Class Form
+  - [x] Add Review Form
+- [x] minimum 3 x Original Higher Order Functions
+  - [x] addClass()
+  - [x] SearchClass()
+  - [x] regUser()
+- [x] minimun 2 x mongoose schemas
+- [x] stability / security
+- [x] originality
+- [x] research topics
+  - [x] 2 pts - Bootstrap with customized theme
+  - [x] 3 pts - Client Side validation using AJAX and jQuery (Review + Register + Class Form)
+  - [x] 5 pts - Passport.js 
+  - [x] 2 pt -  Fuzzy Search 
+  - [x] 1 pt - Image-downloader
+  - [x] 1 pt - External API - Random Avatar from DiceBear.com
+  - [x] 1 pt - Chart.js, Typeit.js
+  - [x] 1 pt - Quill.js Text Editor
