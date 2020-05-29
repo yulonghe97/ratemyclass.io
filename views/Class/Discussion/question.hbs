@@ -1,0 +1,223 @@
+<script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+<script type="text/javascript" src="/js/overhang/overhang.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/l4xh6s9yyous55kfoz0s5uy8n2nzrfc51yeuwkdw5kysm9on/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: "autosave autoresize image imagetools",
+        toolbar_mode: 'floating',
+    });
+</script>
+
+<!--Main Layout-->
+<div class="spinner-wrapper">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+<main>
+    <div class="container" id="main">
+        <!--Discussion Section-->
+        <section class="section mt-3 pt-3">
+            <nav aria-label="breadcrumb" class="mr-auto">
+                <ol class="breadcrumb border border-dark white">
+                    <li class="breadcrumb-item"><a class="black-text" href="#">Intro to Microeconomics, Marc
+                            LiberMan</a></li>
+                    <li class="breadcrumb-item active">Discussion</li>
+                </ol>
+            </nav>
+            <div class="d-flex justify-content-between pt-4">
+                <h4 class="pt-4 pb-4">Discussion</h4>
+                <a class="btn-floating btn-sm btn-primary" data-toggle="modal" data-target="#centralModalSm"><i
+                        class="fas fa-plus"></i></a>
+            </div>
+
+            <div class="row border p-3 rounded mb-2">
+                <div class="col-md-1">
+                    <img src="https://avatars.dicebear.com/api/male/ffdssd.svg" alt="Avatar"
+                        class="md-avatar rounded-circle pr-1" style="width: 3em;">
+                </div>
+                <div class="col-md-9 d-block mt-2">
+                    <h5 class="text-primary">Anyone took this course?</h5>
+                    <small class="text-muted"><strong>Amy</strong> started 2020-03-24 15:00:00</small>
+                </div>
+                <div class="col-md-1 mt-2 d-flex flex-column justify-content-center align-items-end">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3><i class="fas fa-fire text-black-50"></i></h3>
+                        <small class="text-muted">415</small>
+                    </div>
+                </div>
+                <div class="col-md-1 mt-2 d-flex flex-column justify-content-center align-items-end">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3><i class="fas fa-comment-dots text-black-50"></i></h3>
+                        <small class="text-muted">9</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row border p-3 rounded mb-2">
+                <div class="col-md-1">
+                    <img src="https://avatars.dicebear.com/api/avataaars/dsffdssddd.svg" alt="Avatar"
+                        class="md-avatar rounded-circle pr-1" style="width: 3em;">
+                </div>
+                <div class="col-md-9 d-block mt-2">
+                    <h5 class="text-primary">Is HW Hard?</h5>
+                    <small class="text-muted"><i class="fas fa-reply"></i> Hawks replied 4 hours ago</small>
+                </div>
+                <div class="col-md-1 mt-2 d-flex flex-column justify-content-center align-items-end">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3><i class="fas fa-fire text-black-50"></i></h3>
+                        <small class="text-muted">15</small>
+                    </div>
+                </div>
+                <div class="col-md-1 mt-2 d-flex flex-column justify-content-center align-items-end">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3><i class="fas fa-comment-dots text-black-50"></i></h3>
+                        <small class="text-muted">9</small>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+    </div>
+
+</main>
+<!--Main Layout-->
+
+<!-- Post Question Modal -->
+
+<!-- Central Modal Small -->
+<div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+
+    <!-- Change class .modal-sm to change the size of the modal -->
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100 text-center" id="myModalLabel">Post Question</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card z-depth-0">
+                    <div class="card-body">
+                        <ul class="list-unstyled p-3 border">
+                            <li>1. Please obey to the community rule and ask appropriate question.</li>
+                            <li>2. By default, you will be notified via email when your question gets responded.</li>
+                        </ul>
+                        <div class="row rounded mt-5">
+                            <div class="col-md-12">
+                                <form method="post">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Question</label>
+                                        <input type="text" class="form-control" id="questionTitle" name="questionTitle"
+                                            placeholder="Briefly talk about your question">
+                                    </div>
+                                    <textarea id="postQuestion" name="questionContent">
+                                    </textarea>
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="isEmail" name="isEmail">
+                                            <label class="form-check-label" for="isEmail"><small class="text-muted">
+                                                    Don't notify me via email
+                                                </small></label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <button class="btn btn-sm btn-primary btn-rounded text-center"
+                                            type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Central Modal Small -->
+
+
+
+
+<script>
+
+
+    $(document).ready(() => {
+
+
+        // Hide the Preloader When Loaded
+        const preloaderFadeOutTime = 1000;
+        function hidePreloader() {
+            var preloader = $('.spinner-wrapper');
+            preloader.fadeOut(preloaderFadeOutTime);
+        }
+        hidePreloader();
+
+        $('.mdb-select').materialSelect();
+
+        // Start Initialization
+        // Set Rating for Read
+        $.getJSON('/api/getReviews/' + $("#classID").text(), function (data) {
+
+            // Round up for stars
+
+            let classQualityRate, classDifficultyRate;
+            classQualityRate = data[0].overallClassQualityRate;
+            classDifficultyRate = data[0].overallClassDifficultyRate;
+            const QualityRateDec = classQualityRate - Math.floor(classQualityRate);
+            const DifficultyRateDec = classDifficultyRate - Math.floor(classDifficultyRate);
+            if (QualityRateDec >= 0.35 && QualityRateDec < 0.50) {
+                classQualityRate = Math.floor(classQualityRate) + 0.50;
+            } else if (QualityRateDec >= 0.50 && QualityRateDec < 0.75) {
+                classQualityRate = Math.floor(classQualityRate) + 0.50;
+            } else if (QualityRateDec >= 0.75) {
+                classQualityRate = Math.ceil(classQualityRate);
+            }
+            if (DifficultyRateDec >= 0.35 && DifficultyRateDec < 0.50) {
+                classDifficultyRate = Math.floor(classDifficultyRate) + 0.50;
+            } else if (DifficultyRateDec >= 0.50 && DifficultyRateDec < 0.75) {
+                classDifficultyRate = Math.floor(classDifficultyRate) + 0.50;
+            } else if (DifficultyRateDec >= 0.75) {
+                classDifficultyRate = Math.ceil(classDifficultyRate);
+            }
+
+            $(`.rating-overall-quality`).starRating({
+                useFullStars: false,
+                starShape: 'rounded',
+                starSize: 20,
+                forceRoundUp: true
+            });
+            $(`.rating-overall-difficulty`).starRating({
+                useFullStars: false,
+                starShape: 'rounded',
+                starSize: 20,
+                forceRoundUp: true
+            });
+
+            $(`.rating-overall-quality`).starRating('setRating', classQualityRate);
+            $(`.rating-overall-difficulty`).starRating('setRating', classDifficultyRate);
+            $(`.rating-overall-quality`).starRating('setReadOnly', true);
+            $(`.rating-overall-difficulty`).starRating('setReadOnly', true);
+
+        });
+
+        // Add Review Authentication Check
+        $('#addReviewBtn').click(function () {
+            const currentId = $("#classID").text();
+            window.location.href = '/class/' + currentId;
+        });
+
+    });
+
+
+
+
+</script>

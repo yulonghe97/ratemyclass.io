@@ -78,8 +78,6 @@ async function saveReview(reviewUser, reviewUserId, reviewDate, reviewClass, rev
             currentClass.overallClassDifficultyRate,
             currentClass.overallGradeScore
         );
-        // console.log(reCalculated);
-        // console.log(utils.convertLetterGrade(reCalculated.newAvgGrade));
         // Save the scores to the class
         const savedClass = await Class.findOneAndUpdate(
             //update the overall rating as well
@@ -93,7 +91,7 @@ async function saveReview(reviewUser, reviewUserId, reviewDate, reviewClass, rev
                     }
             }
         );
-        // console.log(savedClass);
+
         console.log(`Class: ${savedClass.className} Saved.`);
         // Find the related User
         const savedUser = await User.findOneAndUpdate(

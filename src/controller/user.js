@@ -165,3 +165,7 @@ exports.checkAuthentication = (req, res, next) => {
 };
 
 
+exports.getCurrentUser = (req, res) => {
+    return req.user;
+}
+

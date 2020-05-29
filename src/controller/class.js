@@ -27,7 +27,6 @@ exports.getViewClass = (req, res) => {
       const mergedReviews = await review.getReviewUserInfo(classReview.reviews);
       // find related Classes
       const relatedClassInfo = await getRelatedClassInfo(course.relatedClass);
-      console.log(relatedClassInfo);
       if (req.user) {
         // User Signed In
         res.render("Class/classPage", {
@@ -41,6 +40,54 @@ exports.getViewClass = (req, res) => {
         });
       } else {
         res.render("Class/classPage", {
+          signedOut: true,
+          course: course,
+          reviews: mergedReviews,
+          reviewNum: mergedReviews.length,
+          relatedClass: relatedClassInfo
+        });
+      }      
+    });
+  }else{
+    // If there is no query
+    req.flash('error', 'Unable to Find the Class');
+    res.redirect('/error');
+  }
+};
+
+
+exports.getViewClass2 = (req, res) => {
+  // Store last page visited in session
+  req.session.redirectTo = req.originalUrl;
+
+  // If there is a query
+  if (req.params.classId) {
+    Class.findOne({_id: req.params.classId}, async (err, course)=>{
+      // Error Handling
+      if(err || course === null){
+        req.flash('error', 'Unable to Find the Class');
+        res.redirect('/error');
+        return errHandle(err)
+      }
+      // Get Reviews
+      const classReview = await review.getReview(req, res, req.params.classId);
+      // We want to get user info as well, merge into the review
+      const mergedReviews = await review.getReviewUserInfo(classReview.reviews);
+      // find related Classes
+      const relatedClassInfo = await getRelatedClassInfo(course.relatedClass);
+      if (req.user) {
+        // User Signed In
+        res.render("Class/Discussion/question", {
+          userNickname: req.user.userNickname,
+          signedOut: false,
+          avatar: req.user.userAvatarUrl,
+          course: course,
+          reviews: mergedReviews,
+          reviewNum: mergedReviews.length,
+          relatedClass: relatedClassInfo
+        });
+      } else {
+        res.render("Class/Discussion/question", {
           signedOut: true,
           course: course,
           reviews: mergedReviews,
@@ -76,7 +123,6 @@ exports.getAddClass = (req, res) => {
 
 exports.postAddClass = async (req, res) => {
   const classData = req.body;
-  console.log(classData);
   // check and cast the classSession type.
   let classSession;
   let classSemester;

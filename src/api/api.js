@@ -61,7 +61,6 @@ exports.getClassInfo = async (req, res)=>{
 };
 
 exports.searchClass = (req, res)=>{
-    console.log(req.params);
   Class.searchClass(req.params.query, (result)=>{
       let sorted = [...result];
       switch (req.params.sort) {

@@ -18,16 +18,16 @@
         <section class="section mt-3">
             <!--Grid row-->
             <div class="row">
-                <div class="col-md-auto">
+                <div class="col-md-12">
                     <!-- Card -->
                     <div class="card">
                         <div class="card-body card-body-cascade text-center">
-                            <!--                            <div class="d-flex justify-content-end p-3">-->
-                            <!--                                &lt;!&ndash; Card image &ndash;&gt;-->
-                            <!--                                <img class="card-img-top img-fluid" style="width: 100px"-->
-                            <!--                                     src="https://images-na.ssl-images-amazon.com/images/I/617H1Z7lr8L._AC_SL1500_.jpg"-->
-                            <!--                                     alt="Card image cap">-->
-                            <!--                            </div>-->
+                                                       <div class="d-flex justify-content-end">
+                                                            {{!-- &lt;!&ndash; Card image &ndash;&gt;--> --}}
+                                                            <img class="card-img-top img-fluid" style="width: 70px"
+                                                                 src="https://images-na.ssl-images-amazon.com/images/I/617H1Z7lr8L._AC_SL1500_.jpg"
+                                                                 alt="Card image cap">
+                                                       </div>
                             <h2 class="p-2"><a><strong>{{course.className}}</strong></a></h2>
                             <p>
                                 <a>{{course.classCode}}&nbsp;</a>
@@ -421,7 +421,7 @@
         <div class="container-fluid d-flex justify-content-end">
             <a id="addReviewBtn" class="btn btn-sm btn-rounded btn-primary">Add
                 review</a>
-            <a class="btn btn-sm btn-rounded btn-default"><i class="fas fa-plus mr-1"></i>Follow</a>
+            <a id="questionBtn" class="btn btn-sm btn-rounded btn-default"><i class="fas fa-plus mr-1"></i>Question</a>
             </a>
         </div>
     </div>
@@ -437,7 +437,7 @@
 
 
         // Hide the Preloader When Loaded
-        const preloaderFadeOutTime = 2000;
+        const preloaderFadeOutTime = 1000;
         function hidePreloader() {
             var preloader = $('.spinner-wrapper');
             preloader.fadeOut(preloaderFadeOutTime);
@@ -693,6 +693,11 @@
                         });
                 }
             });
+        });
+
+        $('#questionBtn').click(function(){
+            const currentId = $("#classID").text();
+            window.location.href = '/discussion/' + currentId;
         });
 
         // Set Star Rating for Write
