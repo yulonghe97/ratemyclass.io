@@ -148,27 +148,9 @@ const University = mongoose.model("University", universitySchema);
 const Question = mongoose.model("Question", questionSchema);
 const Answer = mongoose.model("Answer", answerSchema);
 
-// mongodb driver
-let dbconf;
-if (process.env.NODE_ENV === "PRODUCTION") {
-  // if we're in PRODUCTION mode, then read the configuration from a file
-  // use blocking file io to do this...
-  const fs = require("fs");
-  const path = require("path");
-  const fn = path.join(__dirname, "/config.json");
-  const data = fs.readFileSync(fn);
-
-  // our configuration file will be in json, so parse it and set the
-  // connection string appropriately!
-  const conf = JSON.parse(data);
-  dbconf = conf.dbconf;
-} else {
-  console.log(`Mode Error.`);
-}
-
 function connectDB() {
   mongoose.connect(
-    dbconf,
+    process.env.MONGO,
     { useNewUrlParser: true, useUnifiedTopology: true },
     (error) => {
       if (!error) {
