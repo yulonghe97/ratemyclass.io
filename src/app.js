@@ -34,4 +34,4 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(routes);
-app.listen(3000);
+app.listen(process.env.PORT);
